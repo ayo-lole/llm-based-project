@@ -1,0 +1,22 @@
+{
+  "id": "android_uamp_username_and_password_sign_in",
+  "repo": "android/uamp",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "FrameLayout",
+    "ImageView",
+    "ScrollView",
+    "TextView",
+    "androidx.appcompat.widget.Toolbar",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "androidx.constraintlayout.widget.Guideline",
+    "com.google.android.material.textfield.TextInputEditText",
+    "com.google.android.material.textfield.TextInputLayout"
+  ],
+  "container": "FrameLayout",
+  "loc_xml": 141,
+  "complexity": "medium",
+  "nesting_depth": 4
+}

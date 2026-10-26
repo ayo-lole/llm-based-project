@@ -1,0 +1,20 @@
+{
+  "id": "nickbutcher_plaid_toast_logged_in_confirmation",
+  "repo": "nickbutcher/plaid",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "FrameLayout",
+    "GridLayout",
+    "data",
+    "import",
+    "io.plaidapp.core.ui.widget.BaselineGridTextView",
+    "io.plaidapp.core.ui.widget.ForegroundImageView",
+    "layout",
+    "variable"
+  ],
+  "container": "FrameLayout",
+  "loc_xml": 79,
+  "complexity": "medium",
+  "nesting_depth": 3
+}

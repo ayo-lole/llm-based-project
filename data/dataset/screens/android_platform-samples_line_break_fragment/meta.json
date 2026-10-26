@@ -1,0 +1,19 @@
+{
+  "id": "android_platform-samples_line_break_fragment",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "LinearLayout",
+    "SeekBar",
+    "Spinner",
+    "TextView",
+    "androidx.constraintlayout.widget.Barrier",
+    "androidx.constraintlayout.widget.ConstraintLayout"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 103,
+  "complexity": "medium",
+  "nesting_depth": 2
+}

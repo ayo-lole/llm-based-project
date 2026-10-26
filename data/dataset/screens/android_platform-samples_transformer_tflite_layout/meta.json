@@ -1,0 +1,19 @@
+{
+  "id": "android_platform-samples_transformer_tflite_layout",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "ImageView",
+    "LinearLayout",
+    "RadioButton",
+    "RadioGroup",
+    "TextView",
+    "androidx.media3.ui.PlayerView"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 96,
+  "complexity": "medium",
+  "nesting_depth": 2
+}

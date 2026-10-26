@@ -1,0 +1,16 @@
+{
+  "id": "nickbutcher_plaid_designer_news_story_item",
+  "repo": "nickbutcher/plaid",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "FrameLayout",
+    "ImageButton",
+    "io.plaidapp.core.ui.widget.BaselineGridTextView",
+    "io.plaidapp.core.ui.widget.FourThreeLinearLayout"
+  ],
+  "container": "FrameLayout",
+  "loc_xml": 81,
+  "complexity": "simple",
+  "nesting_depth": 2
+}

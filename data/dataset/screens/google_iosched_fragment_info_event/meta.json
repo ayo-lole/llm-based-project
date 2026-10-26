@@ -1,0 +1,24 @@
+{
+  "id": "google_iosched_fragment_info_event",
+  "repo": "google/iosched",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "ImageView",
+    "TextView",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "androidx.constraintlayout.widget.Guideline",
+    "androidx.core.widget.NestedScrollView",
+    "com.google.android.material.card.MaterialCardView",
+    "com.google.samples.apps.iosched.widget.CountdownView",
+    "com.google.samples.apps.iosched.widget.EventCardView",
+    "data",
+    "include",
+    "layout",
+    "variable"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 241,
+  "complexity": "medium",
+  "nesting_depth": 5
+}

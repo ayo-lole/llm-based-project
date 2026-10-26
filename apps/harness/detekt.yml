@@ -1,0 +1,33 @@
+build:
+  maxIssues: 0
+
+config:
+  validation: true
+
+complexity:
+  LongMethod:
+    active: true
+    threshold: 60
+  TooManyFunctions:
+    active: true
+    thresholdInFiles: 20
+  LongParameterList:
+    active: true
+    # Compose screens hoist state and pass one lambda per event (UDF/R5);
+    # long parameter lists are idiomatic for @Composable functions.
+    ignoreAnnotated: ['Composable']
+
+style:
+  MagicNumber:
+    active: false
+  MaxLineLength:
+    active: true
+    maxLineLength: 120
+
+naming:
+  FunctionNaming:
+    active: true
+    functionPattern: '[a-z][a-zA-Z0-9]*'
+    # @Composable functions are PascalCase by Compose convention; without this
+    # exemption every composable is a Detekt finding and the loop never converges.
+    ignoreAnnotated: ['Composable']

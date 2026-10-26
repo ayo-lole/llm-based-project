@@ -1,0 +1,21 @@
+{
+  "id": "android_databinding-samples_observable_field_profile",
+  "repo": "android/databinding-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "ImageView",
+    "ProgressBar",
+    "TextView",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "data",
+    "import",
+    "layout",
+    "variable"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 173,
+  "complexity": "medium",
+  "nesting_depth": 2
+}

@@ -1,0 +1,16 @@
+{
+  "id": "nickbutcher_plaid_designer_news_enter_comment",
+  "repo": "nickbutcher/plaid",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "ImageButton",
+    "LinearLayout",
+    "com.google.android.material.textfield.TextInputEditText",
+    "com.google.android.material.textfield.TextInputLayout"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 61,
+  "complexity": "simple",
+  "nesting_depth": 2
+}

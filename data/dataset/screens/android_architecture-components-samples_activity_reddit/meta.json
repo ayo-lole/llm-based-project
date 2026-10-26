@@ -1,0 +1,17 @@
+{
+  "id": "android_architecture-components-samples_activity_reddit",
+  "repo": "android/architecture-components-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "EditText",
+    "LinearLayout",
+    "androidx.recyclerview.widget.RecyclerView",
+    "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+    "com.google.android.material.textfield.TextInputLayout"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 55,
+  "complexity": "simple",
+  "nesting_depth": 2
+}

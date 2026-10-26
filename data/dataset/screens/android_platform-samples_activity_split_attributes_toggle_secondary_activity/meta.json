@@ -1,0 +1,17 @@
+{
+  "id": "android_platform-samples_activity_split_attributes_toggle_secondary_activity",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "LinearLayout",
+    "Spinner",
+    "TextView",
+    "View"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 77,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

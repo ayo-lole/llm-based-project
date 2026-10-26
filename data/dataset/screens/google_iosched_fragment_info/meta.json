@@ -1,0 +1,20 @@
+{
+  "id": "google_iosched_fragment_info",
+  "repo": "google/iosched",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "View",
+    "androidx.appcompat.widget.Toolbar",
+    "androidx.coordinatorlayout.widget.CoordinatorLayout",
+    "androidx.viewpager2.widget.ViewPager2",
+    "com.google.android.material.appbar.AppBarLayout",
+    "com.google.android.material.tabs.TabLayout",
+    "com.google.samples.apps.iosched.widget.FadingSnackbar",
+    "layout"
+  ],
+  "container": "androidx.coordinatorlayout.widget.CoordinatorLayout",
+  "loc_xml": 75,
+  "complexity": "medium",
+  "nesting_depth": 3
+}

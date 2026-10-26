@@ -1,0 +1,20 @@
+{
+  "id": "google_iosched_fragment_onboarding",
+  "repo": "google/iosched",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "androidx.constraintlayout.widget.Guideline",
+    "androidx.viewpager.widget.ViewPager",
+    "com.pixelcan.inkpageindicator.InkPageIndicator",
+    "data",
+    "layout",
+    "variable"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 80,
+  "complexity": "medium",
+  "nesting_depth": 2
+}

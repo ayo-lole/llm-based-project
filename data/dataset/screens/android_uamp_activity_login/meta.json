@@ -1,0 +1,16 @@
+{
+  "id": "android_uamp_activity_login",
+  "repo": "android/uamp",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "EditText",
+    "ImageView",
+    "androidx.constraintlayout.widget.ConstraintLayout"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 79,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

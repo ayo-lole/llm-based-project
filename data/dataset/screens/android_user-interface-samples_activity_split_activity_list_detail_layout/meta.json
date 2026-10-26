@@ -1,0 +1,15 @@
+{
+  "id": "android_user-interface-samples_activity_split_activity_list_detail_layout",
+  "repo": "android/user-interface-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "RelativeLayout",
+    "TextView"
+  ],
+  "container": "RelativeLayout",
+  "loc_xml": 44,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

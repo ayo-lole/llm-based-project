@@ -1,0 +1,19 @@
+{
+  "id": "android_uamp_pin_sign_in",
+  "repo": "android/uamp",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "FrameLayout",
+    "ImageView",
+    "LinearLayout",
+    "ScrollView",
+    "TextView",
+    "androidx.appcompat.widget.Toolbar",
+    "androidx.constraintlayout.widget.ConstraintLayout"
+  ],
+  "container": "FrameLayout",
+  "loc_xml": 103,
+  "complexity": "medium",
+  "nesting_depth": 3
+}

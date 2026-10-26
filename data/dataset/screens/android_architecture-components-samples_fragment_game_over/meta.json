@@ -1,0 +1,15 @@
+{
+  "id": "android_architecture-components-samples_fragment_game_over",
+  "repo": "android/architecture-components-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "TextView",
+    "androidx.constraintlayout.widget.ConstraintLayout"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 66,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

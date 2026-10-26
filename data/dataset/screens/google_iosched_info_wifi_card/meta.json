@@ -1,0 +1,19 @@
+{
+  "id": "google_iosched_info_wifi_card",
+  "repo": "google/iosched",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "LinearLayout",
+    "TextView",
+    "com.google.android.material.card.MaterialCardView",
+    "data",
+    "layout",
+    "variable"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 72,
+  "complexity": "medium",
+  "nesting_depth": 3
+}

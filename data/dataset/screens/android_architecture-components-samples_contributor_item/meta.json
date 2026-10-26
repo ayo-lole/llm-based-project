@@ -1,0 +1,19 @@
+{
+  "id": "android_architecture-components-samples_contributor_item",
+  "repo": "android/architecture-components-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "ImageView",
+    "TextView",
+    "androidx.cardview.widget.CardView",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "data",
+    "layout",
+    "variable"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 70,
+  "complexity": "medium",
+  "nesting_depth": 3
+}

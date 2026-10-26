@@ -1,0 +1,15 @@
+{
+  "id": "android_platform-samples_fragment_shared_element_transition",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "TextView",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "com.google.android.material.card.MaterialCardView"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 58,
+  "complexity": "simple",
+  "nesting_depth": 2
+}

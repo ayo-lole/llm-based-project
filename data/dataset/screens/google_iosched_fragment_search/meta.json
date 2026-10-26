@@ -1,0 +1,25 @@
+{
+  "id": "google_iosched_fragment_search",
+  "repo": "google/iosched",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "LinearLayout",
+    "SearchView",
+    "TextView",
+    "ViewStub",
+    "androidx.appcompat.widget.Toolbar",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "androidx.coordinatorlayout.widget.CoordinatorLayout",
+    "androidx.recyclerview.widget.RecyclerView",
+    "com.google.android.material.appbar.AppBarLayout",
+    "data",
+    "fragment",
+    "layout",
+    "variable"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 148,
+  "complexity": "medium",
+  "nesting_depth": 5
+}

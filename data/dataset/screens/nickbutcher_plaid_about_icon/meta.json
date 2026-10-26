@@ -1,0 +1,17 @@
+{
+  "id": "nickbutcher_plaid_about_icon",
+  "repo": "nickbutcher/plaid",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "ImageView",
+    "LinearLayout",
+    "ScrollView",
+    "io.plaidapp.core.ui.widget.BaselineGridTextView",
+    "layout"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 68,
+  "complexity": "simple",
+  "nesting_depth": 3
+}

@@ -1,0 +1,16 @@
+{
+  "id": "google_iosched_fragment_schedule_two_pane",
+  "repo": "google/iosched",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "FrameLayout",
+    "androidx.fragment.app.FragmentContainerView",
+    "com.google.samples.apps.iosched.widget.FadingSnackbar",
+    "com.google.samples.apps.iosched.widget.IoSlidingPaneLayout"
+  ],
+  "container": "FrameLayout",
+  "loc_xml": 53,
+  "complexity": "simple",
+  "nesting_depth": 2
+}

@@ -1,0 +1,23 @@
+{
+  "id": "google_iosched_item_feed_sessions_container",
+  "repo": "google/iosched",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "LinearLayout",
+    "ProgressBar",
+    "TextView",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "androidx.constraintlayout.widget.Guideline",
+    "androidx.recyclerview.widget.RecyclerView",
+    "com.google.android.material.card.MaterialCardView",
+    "data",
+    "layout",
+    "variable"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 147,
+  "complexity": "medium",
+  "nesting_depth": 4
+}

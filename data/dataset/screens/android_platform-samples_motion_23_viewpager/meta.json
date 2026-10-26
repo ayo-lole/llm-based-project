@@ -1,0 +1,16 @@
+{
+  "id": "android_platform-samples_motion_23_viewpager",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "androidx.viewpager2.widget.ViewPager2",
+    "com.google.android.material.tabs.TabLayout",
+    "include"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 41,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

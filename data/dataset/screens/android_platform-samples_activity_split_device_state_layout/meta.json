@@ -1,0 +1,20 @@
+{
+  "id": "android_platform-samples_activity_split_device_state_layout",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "CheckBox",
+    "LinearLayout",
+    "RadioButton",
+    "RadioGroup",
+    "ScrollView",
+    "TextView",
+    "View"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 165,
+  "complexity": "medium",
+  "nesting_depth": 3
+}

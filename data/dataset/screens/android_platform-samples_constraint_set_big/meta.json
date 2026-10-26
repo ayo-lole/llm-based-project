@@ -1,0 +1,15 @@
+{
+  "id": "android_platform-samples_constraint_set_big",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "ImageView",
+    "TextView",
+    "androidx.constraintlayout.widget.ConstraintLayout"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 67,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

@@ -1,0 +1,26 @@
+{
+  "id": "google_iosched_fragment_map",
+  "repo": "google/iosched",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "ImageView",
+    "TextView",
+    "View",
+    "androidx.appcompat.widget.Toolbar",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "androidx.constraintlayout.widget.Guideline",
+    "androidx.coordinatorlayout.widget.CoordinatorLayout",
+    "androidx.core.widget.NestedScrollView",
+    "com.google.android.gms.maps.MapView",
+    "com.google.android.material.floatingactionbutton.FloatingActionButton",
+    "data",
+    "import",
+    "layout",
+    "variable"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 225,
+  "complexity": "medium",
+  "nesting_depth": 5
+}

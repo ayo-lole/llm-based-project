@@ -1,0 +1,20 @@
+{
+  "id": "android_architecture-components-samples_loading_state",
+  "repo": "android/architecture-components-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "LinearLayout",
+    "ProgressBar",
+    "TextView",
+    "data",
+    "import",
+    "layout",
+    "variable"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 67,
+  "complexity": "medium",
+  "nesting_depth": 2
+}

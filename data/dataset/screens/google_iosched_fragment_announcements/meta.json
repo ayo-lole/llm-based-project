@@ -1,0 +1,20 @@
+{
+  "id": "google_iosched_fragment_announcements",
+  "repo": "google/iosched",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "LinearLayout",
+    "View",
+    "androidx.appcompat.widget.Toolbar",
+    "androidx.recyclerview.widget.RecyclerView",
+    "data",
+    "import",
+    "layout",
+    "variable"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 62,
+  "complexity": "medium",
+  "nesting_depth": 2
+}

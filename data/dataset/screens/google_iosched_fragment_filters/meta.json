@@ -1,0 +1,22 @@
+{
+  "id": "google_iosched_fragment_filters",
+  "repo": "google/iosched",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "ImageButton",
+    "TextView",
+    "View",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "androidx.constraintlayout.widget.Guideline",
+    "androidx.recyclerview.widget.RecyclerView",
+    "data",
+    "layout",
+    "variable"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 142,
+  "complexity": "medium",
+  "nesting_depth": 2
+}

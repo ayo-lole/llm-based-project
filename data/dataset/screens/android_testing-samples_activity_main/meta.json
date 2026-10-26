@@ -1,0 +1,15 @@
+{
+  "id": "android_testing-samples_activity_main",
+  "repo": "android/testing-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "LinearLayout",
+    "TextView"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 45,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

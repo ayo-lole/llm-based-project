@@ -1,0 +1,16 @@
+{
+  "id": "android_uamp_fragment_mediaitem_list",
+  "repo": "android/uamp",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "FrameLayout",
+    "ImageView",
+    "ProgressBar",
+    "androidx.recyclerview.widget.RecyclerView"
+  ],
+  "container": "FrameLayout",
+  "loc_xml": 50,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

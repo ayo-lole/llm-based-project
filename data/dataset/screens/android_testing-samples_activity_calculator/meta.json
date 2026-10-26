@@ -1,0 +1,17 @@
+{
+  "id": "android_testing-samples_activity_calculator",
+  "repo": "android/testing-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "EditText",
+    "LinearLayout",
+    "RelativeLayout",
+    "TextView"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 82,
+  "complexity": "simple",
+  "nesting_depth": 2
+}

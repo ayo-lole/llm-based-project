@@ -1,0 +1,15 @@
+{
+  "id": "android_platform-samples_grid_item",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "FrameLayout",
+    "ImageView",
+    "TextView"
+  ],
+  "container": "FrameLayout",
+  "loc_xml": 33,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

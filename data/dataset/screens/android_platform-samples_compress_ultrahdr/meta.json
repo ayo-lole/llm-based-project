@@ -1,0 +1,18 @@
+{
+  "id": "android_platform-samples_compress_ultrahdr",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "ImageView",
+    "LinearLayout",
+    "RadioButton",
+    "RadioGroup",
+    "TextView",
+    "com.example.platform.graphics.ultrahdr.common.ColorModeControls"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 70,
+  "complexity": "simple",
+  "nesting_depth": 2
+}

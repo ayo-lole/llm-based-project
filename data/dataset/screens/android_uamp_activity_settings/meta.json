@@ -1,0 +1,16 @@
+{
+  "id": "android_uamp_activity_settings",
+  "repo": "android/uamp",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "FrameLayout",
+    "LinearLayout",
+    "androidx.appcompat.widget.Toolbar",
+    "com.google.android.material.appbar.AppBarLayout"
+  ],
+  "container": "FrameLayout",
+  "loc_xml": 40,
+  "complexity": "simple",
+  "nesting_depth": 2
+}

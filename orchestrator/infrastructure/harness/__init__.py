@@ -1,0 +1,1 @@
+"""Android Gradle harness adapters."""

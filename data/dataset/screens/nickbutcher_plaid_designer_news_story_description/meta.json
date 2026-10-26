@@ -1,0 +1,16 @@
+{
+  "id": "nickbutcher_plaid_designer_news_story_description",
+  "repo": "nickbutcher/plaid",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "LinearLayout",
+    "Space",
+    "io.plaidapp.core.ui.widget.BaselineGridTextView",
+    "io.plaidapp.core.ui.widget.CircularImageView"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 116,
+  "complexity": "simple",
+  "nesting_depth": 2
+}

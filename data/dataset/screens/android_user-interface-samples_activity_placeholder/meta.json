@@ -1,0 +1,14 @@
+{
+  "id": "android_user-interface-samples_activity_placeholder",
+  "repo": "android/user-interface-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "TextView",
+    "androidx.constraintlayout.widget.ConstraintLayout"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 30,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

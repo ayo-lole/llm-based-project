@@ -1,0 +1,15 @@
+{
+  "id": "android_platform-samples_color_mode_controls",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "LinearLayout",
+    "TextView"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 56,
+  "complexity": "simple",
+  "nesting_depth": 2
+}

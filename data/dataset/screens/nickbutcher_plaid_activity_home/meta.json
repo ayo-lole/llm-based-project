@@ -1,0 +1,19 @@
+{
+  "id": "nickbutcher_plaid_activity_home",
+  "repo": "nickbutcher/plaid",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "FrameLayout",
+    "ProgressBar",
+    "View",
+    "ViewStub",
+    "androidx.appcompat.widget.Toolbar",
+    "androidx.drawerlayout.widget.DrawerLayout",
+    "androidx.recyclerview.widget.RecyclerView"
+  ],
+  "container": "FrameLayout",
+  "loc_xml": 97,
+  "complexity": "medium",
+  "nesting_depth": 2
+}

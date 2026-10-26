@@ -1,0 +1,16 @@
+{
+  "id": "nickbutcher_plaid_about_libs",
+  "repo": "nickbutcher/plaid",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "FrameLayout",
+    "View",
+    "androidx.recyclerview.widget.RecyclerView",
+    "layout"
+  ],
+  "container": "FrameLayout",
+  "loc_xml": 54,
+  "complexity": "simple",
+  "nesting_depth": 2
+}

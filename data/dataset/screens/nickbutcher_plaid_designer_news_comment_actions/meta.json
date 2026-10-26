@@ -1,0 +1,17 @@
+{
+  "id": "nickbutcher_plaid_designer_news_comment_actions",
+  "repo": "nickbutcher/plaid",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "EditText",
+    "FrameLayout",
+    "ImageButton",
+    "com.google.android.material.textfield.TextInputLayout",
+    "io.plaidapp.core.ui.widget.BaselineGridTextView"
+  ],
+  "container": "FrameLayout",
+  "loc_xml": 72,
+  "complexity": "simple",
+  "nesting_depth": 2
+}

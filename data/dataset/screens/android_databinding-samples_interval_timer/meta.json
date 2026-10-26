@@ -1,0 +1,22 @@
+{
+  "id": "android_databinding-samples_interval_timer",
+  "repo": "android/databinding-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "EditText",
+    "ProgressBar",
+    "ToggleButton",
+    "androidx.appcompat.widget.AppCompatTextView",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "data",
+    "import",
+    "layout",
+    "variable"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 297,
+  "complexity": "medium",
+  "nesting_depth": 2
+}

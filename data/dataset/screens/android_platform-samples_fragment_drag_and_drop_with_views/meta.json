@@ -1,0 +1,16 @@
+{
+  "id": "android_platform-samples_fragment_drag_and_drop_with_views",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "ImageView",
+    "TextView",
+    "androidx.constraintlayout.widget.ConstraintLayout"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 62,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

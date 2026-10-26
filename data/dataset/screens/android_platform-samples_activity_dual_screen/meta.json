@@ -1,0 +1,16 @@
+{
+  "id": "android_platform-samples_activity_dual_screen",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "TextView",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "androidx.recyclerview.widget.RecyclerView"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 59,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

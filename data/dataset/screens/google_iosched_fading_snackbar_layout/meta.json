@@ -1,0 +1,16 @@
+{
+  "id": "google_iosched_fading_snackbar_layout",
+  "repo": "google/iosched",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "LinearLayout",
+    "TextView",
+    "merge"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 59,
+  "complexity": "simple",
+  "nesting_depth": 2
+}

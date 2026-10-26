@@ -1,0 +1,20 @@
+{
+  "id": "google_iosched_item_speaker_info",
+  "repo": "google/iosched",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "TextView",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "androidx.constraintlayout.widget.Guideline",
+    "com.google.android.flexbox.FlexboxLayout",
+    "data",
+    "layout",
+    "variable"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 134,
+  "complexity": "medium",
+  "nesting_depth": 3
+}

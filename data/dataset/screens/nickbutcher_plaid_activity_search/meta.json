@@ -1,0 +1,22 @@
+{
+  "id": "nickbutcher_plaid_activity_search",
+  "repo": "nickbutcher/plaid",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "CheckedTextView",
+    "FrameLayout",
+    "ImageButton",
+    "LinearLayout",
+    "ProgressBar",
+    "SearchView",
+    "View",
+    "ViewStub",
+    "androidx.appcompat.widget.AppCompatButton",
+    "androidx.recyclerview.widget.RecyclerView"
+  ],
+  "container": "FrameLayout",
+  "loc_xml": 193,
+  "complexity": "medium",
+  "nesting_depth": 4
+}

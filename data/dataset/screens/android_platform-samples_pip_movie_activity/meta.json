@@ -1,0 +1,17 @@
+{
+  "id": "android_platform-samples_pip_movie_activity",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "LinearLayout",
+    "ScrollView",
+    "TextView",
+    "com.example.android.pip.widget.MovieView"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 75,
+  "complexity": "simple",
+  "nesting_depth": 3
+}

@@ -1,0 +1,23 @@
+{
+  "id": "google_iosched_fragment_speaker",
+  "repo": "google/iosched",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "ImageView",
+    "androidx.appcompat.widget.Toolbar",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "androidx.coordinatorlayout.widget.CoordinatorLayout",
+    "androidx.recyclerview.widget.RecyclerView",
+    "com.google.android.material.appbar.AppBarLayout",
+    "com.google.android.material.appbar.CollapsingToolbarLayout",
+    "com.google.samples.apps.iosched.widget.FadingSnackbar",
+    "data",
+    "layout",
+    "variable"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 119,
+  "complexity": "medium",
+  "nesting_depth": 4
+}

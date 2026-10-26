@@ -1,0 +1,18 @@
+{
+  "id": "android_user-interface-samples_line_break_control",
+  "repo": "android/user-interface-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "SeekBar",
+    "Spinner",
+    "TextView",
+    "androidx.constraintlayout.widget.Barrier",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "com.google.android.material.button.MaterialButton"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 87,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

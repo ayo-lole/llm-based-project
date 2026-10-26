@@ -1,0 +1,9 @@
+Your previous Compose output had the problems listed below. Fix ALL of them while
+keeping the architecture rules from before. Do not use Hilt, Koin or kapt/ksp annotation processors.
+Declare repository/data-source dependencies as interfaces in the same file and receive them through the ViewModel constructor. Return ONLY the corrected Kotlin file.
+
+--- PREVIOUS CODE ---
+{PREV_CODE}
+
+--- PROBLEMS FOUND ---
+{FEEDBACK}

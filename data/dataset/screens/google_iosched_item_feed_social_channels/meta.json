@@ -1,0 +1,17 @@
+{
+  "id": "google_iosched_item_feed_social_channels",
+  "repo": "google/iosched",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "ImageButton",
+    "TextView",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "androidx.constraintlayout.widget.Guideline",
+    "layout"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 131,
+  "complexity": "simple",
+  "nesting_depth": 2
+}

@@ -1,0 +1,14 @@
+{
+  "id": "android_user-interface-samples_linkify_fragment",
+  "repo": "android/user-interface-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "LinearLayout",
+    "TextView"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 38,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

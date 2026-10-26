@@ -1,0 +1,22 @@
+{
+  "id": "android_user-interface-samples_bottom_sheet_font_query",
+  "repo": "android/user-interface-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "AutoCompleteTextView",
+    "Button",
+    "CheckBox",
+    "LinearLayout",
+    "SeekBar",
+    "Space",
+    "TextView",
+    "androidx.cardview.widget.CardView",
+    "androidx.core.widget.NestedScrollView",
+    "com.google.android.material.textfield.TextInputLayout"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 215,
+  "complexity": "medium",
+  "nesting_depth": 5
+}

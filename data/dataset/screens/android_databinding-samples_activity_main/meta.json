@@ -1,0 +1,17 @@
+{
+  "id": "android_databinding-samples_activity_main",
+  "repo": "android/databinding-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "TextView",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "data",
+    "layout"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 92,
+  "complexity": "simple",
+  "nesting_depth": 2
+}

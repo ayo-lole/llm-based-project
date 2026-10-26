@@ -1,0 +1,19 @@
+{
+  "id": "android_platform-samples_pip_activity",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "ImageButton",
+    "LinearLayout",
+    "ScrollView",
+    "TextView",
+    "View",
+    "androidx.constraintlayout.widget.ConstraintLayout"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 119,
+  "complexity": "medium",
+  "nesting_depth": 3
+}

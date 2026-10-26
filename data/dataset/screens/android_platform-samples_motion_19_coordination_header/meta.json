@@ -1,0 +1,15 @@
+{
+  "id": "android_platform-samples_motion_19_coordination_header",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "TextView",
+    "androidx.constraintlayout.motion.widget.MotionLayout",
+    "com.example.platform.ui.constraintlayout.view.BoundsImageView"
+  ],
+  "container": "androidx.constraintlayout.motion.widget.MotionLayout",
+  "loc_xml": 53,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

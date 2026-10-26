@@ -1,0 +1,27 @@
+{
+  "id": "google_iosched_fragment_session_detail",
+  "repo": "google/iosched",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "ImageButton",
+    "ImageView",
+    "View",
+    "androidx.appcompat.widget.Toolbar",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "androidx.coordinatorlayout.widget.CoordinatorLayout",
+    "androidx.recyclerview.widget.RecyclerView",
+    "com.google.android.material.appbar.AppBarLayout",
+    "com.google.android.material.appbar.CollapsingToolbarLayout",
+    "com.google.android.material.bottomappbar.BottomAppBar",
+    "com.google.samples.apps.iosched.ui.reservation.StarReserveFab",
+    "com.google.samples.apps.iosched.widget.FadingSnackbar",
+    "data",
+    "layout",
+    "variable"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 190,
+  "complexity": "complex",
+  "nesting_depth": 5
+}

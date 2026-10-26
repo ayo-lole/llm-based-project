@@ -1,0 +1,15 @@
+{
+  "id": "android_user-interface-samples_widget_grocery_grid",
+  "repo": "android/user-interface-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "CheckBox",
+    "LinearLayout",
+    "include"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 79,
+  "complexity": "simple",
+  "nesting_depth": 3
+}

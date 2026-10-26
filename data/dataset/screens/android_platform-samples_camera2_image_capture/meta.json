@@ -1,0 +1,18 @@
+{
+  "id": "android_platform-samples_camera2_image_capture",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "FrameLayout",
+    "ImageButton",
+    "View",
+    "androidx.compose.ui.platform.ComposeView",
+    "com.example.platform.camera.common.AutoFitSurfaceView"
+  ],
+  "container": "FrameLayout",
+  "loc_xml": 62,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

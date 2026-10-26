@@ -1,0 +1,17 @@
+{
+  "id": "android_platform-samples_motion_20_reveal",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "ImageButton",
+    "ImageView",
+    "TextView",
+    "androidx.constraintlayout.motion.widget.MotionLayout",
+    "com.example.platform.ui.constraintlayout.helpers.FlyingBounceHelper"
+  ],
+  "container": "androidx.constraintlayout.motion.widget.MotionLayout",
+  "loc_xml": 82,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

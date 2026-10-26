@@ -1,0 +1,19 @@
+{
+  "id": "google_iosched_item_feed_moment",
+  "repo": "google/iosched",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "ImageView",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "data",
+    "import",
+    "layout",
+    "variable"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 81,
+  "complexity": "medium",
+  "nesting_depth": 2
+}

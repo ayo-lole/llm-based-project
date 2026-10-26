@@ -1,0 +1,15 @@
+{
+  "id": "nickbutcher_plaid_filter_item",
+  "repo": "nickbutcher/plaid",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "ImageView",
+    "io.plaidapp.core.ui.widget.BaselineGridTextView",
+    "io.plaidapp.core.ui.widget.ForegroundLinearLayout"
+  ],
+  "container": "io.plaidapp.core.ui.widget.ForegroundLinearLayout",
+  "loc_xml": 48,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

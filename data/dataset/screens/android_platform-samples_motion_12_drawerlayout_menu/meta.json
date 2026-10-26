@@ -1,0 +1,15 @@
+{
+  "id": "android_platform-samples_motion_12_drawerlayout_menu",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "TextView",
+    "View",
+    "androidx.constraintlayout.widget.ConstraintLayout"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 111,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

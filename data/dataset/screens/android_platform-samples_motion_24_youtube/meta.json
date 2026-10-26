@@ -1,0 +1,18 @@
+{
+  "id": "android_platform-samples_motion_24_youtube",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "FrameLayout",
+    "ImageView",
+    "View",
+    "androidx.constraintlayout.motion.widget.MotionLayout",
+    "androidx.recyclerview.widget.RecyclerView",
+    "com.google.android.material.bottomnavigation.BottomNavigationView"
+  ],
+  "container": "FrameLayout",
+  "loc_xml": 100,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

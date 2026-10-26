@@ -1,0 +1,15 @@
+{
+  "id": "android_testing-samples_activity_dialer",
+  "repo": "android/testing-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "EditText",
+    "LinearLayout"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 48,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

@@ -1,0 +1,15 @@
+{
+  "id": "android_user-interface-samples_widget_todo_list_glance_preview",
+  "repo": "android/user-interface-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "CheckBox",
+    "LinearLayout",
+    "TextView"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 87,
+  "complexity": "simple",
+  "nesting_depth": 2
+}

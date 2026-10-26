@@ -1,0 +1,22 @@
+{
+  "id": "google_iosched_dialog_sign_out",
+  "repo": "google/iosched",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "ImageView",
+    "LinearLayout",
+    "TextView",
+    "View",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "androidx.constraintlayout.widget.Guideline",
+    "data",
+    "layout",
+    "variable"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 185,
+  "complexity": "medium",
+  "nesting_depth": 3
+}

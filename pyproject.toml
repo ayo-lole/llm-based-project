@@ -1,0 +1,79 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "compose-migration-orchestrator"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "openai>=1.40.0",
+    "requests>=2.32.0",
+    "pandas>=2.2.0",
+    "python-dotenv>=1.0.0",
+    "numpy>=1.26.0",
+    "matplotlib>=3.8.0",
+    "scikit-image>=0.22.0",
+    "Pillow>=10.0.0",
+    "scipy>=1.11.0",
+    "tree-sitter>=0.23.0",
+    "tree-sitter-kotlin>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "ruff>=0.6.0",
+    "import-linter>=2.1.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["orchestrator*"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+exclude = [".venv", "data", "outputs", "apps"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E501"]
+
+[tool.importlinter]
+root_packages = ["orchestrator"]
+
+[[tool.importlinter.contracts]]
+name = "Clean architecture layers"
+type = "layers"
+containers = ["orchestrator"]
+layers = [
+    "interfaces",
+    "evaluation",
+    "infrastructure",
+    "application",
+    "domain",
+]
+
+[[tool.importlinter.contracts]]
+name = "Application imports only domain"
+type = "forbidden"
+source_modules = ["orchestrator.application"]
+forbidden_modules = [
+    "orchestrator.infrastructure",
+    "orchestrator.evaluation",
+    "orchestrator.interfaces",
+    "orchestrator.config",
+]
+
+[[tool.importlinter.contracts]]
+name = "Domain imports nothing from other layers"
+type = "forbidden"
+source_modules = ["orchestrator.domain"]
+forbidden_modules = [
+    "orchestrator.application",
+    "orchestrator.infrastructure",
+    "orchestrator.evaluation",
+    "orchestrator.interfaces",
+    "orchestrator.config",
+]

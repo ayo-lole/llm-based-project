@@ -1,0 +1,20 @@
+{
+  "id": "android_uamp_phone_sign_in",
+  "repo": "android/uamp",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "FrameLayout",
+    "ImageView",
+    "ScrollView",
+    "TextView",
+    "androidx.appcompat.widget.Toolbar",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "androidx.constraintlayout.widget.Guideline"
+  ],
+  "container": "FrameLayout",
+  "loc_xml": 119,
+  "complexity": "medium",
+  "nesting_depth": 3
+}

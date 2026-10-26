@@ -1,0 +1,15 @@
+{
+  "id": "android_platform-samples_advanced_arrangement",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "TextView",
+    "androidx.constraintlayout.widget.ConstraintLayout"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 167,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

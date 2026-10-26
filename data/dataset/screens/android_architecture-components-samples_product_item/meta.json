@@ -1,0 +1,18 @@
+{
+  "id": "android_architecture-components-samples_product_item",
+  "repo": "android/architecture-components-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "RelativeLayout",
+    "TextView",
+    "androidx.cardview.widget.CardView",
+    "data",
+    "layout",
+    "variable"
+  ],
+  "container": "RelativeLayout",
+  "loc_xml": 65,
+  "complexity": "simple",
+  "nesting_depth": 3
+}

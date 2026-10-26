@@ -1,0 +1,17 @@
+{
+  "id": "google_iosched_event_card_content",
+  "repo": "google/iosched",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "ImageView",
+    "TextView",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "merge"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 85,
+  "complexity": "simple",
+  "nesting_depth": 2
+}

@@ -1,0 +1,18 @@
+{
+  "id": "android_uamp_fragment_nowplaying",
+  "repo": "android/uamp",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "ImageButton",
+    "ImageView",
+    "TextView",
+    "View",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "androidx.constraintlayout.widget.Guideline"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 115,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

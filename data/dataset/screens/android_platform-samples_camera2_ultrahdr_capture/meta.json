@@ -1,0 +1,18 @@
+{
+  "id": "android_platform-samples_camera2_ultrahdr_capture",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "FrameLayout",
+    "ImageButton",
+    "View",
+    "androidx.fragment.app.FragmentContainerView",
+    "com.example.platform.camera.common.AutoFitSurfaceView"
+  ],
+  "container": "FrameLayout",
+  "loc_xml": 66,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

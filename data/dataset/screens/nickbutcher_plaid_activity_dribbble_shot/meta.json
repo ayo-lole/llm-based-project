@@ -1,0 +1,25 @@
+{
+  "id": "nickbutcher_plaid_activity_dribbble_shot",
+  "repo": "nickbutcher/plaid",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "FrameLayout",
+    "ImageButton",
+    "View",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "androidx.core.widget.NestedScrollView",
+    "data",
+    "import",
+    "io.plaidapp.core.ui.widget.BaselineGridTextView",
+    "io.plaidapp.core.ui.widget.CircularImageView",
+    "io.plaidapp.core.ui.widget.ElasticDragDismissFrameLayout",
+    "io.plaidapp.core.ui.widget.ParallaxScrimageView",
+    "layout",
+    "variable"
+  ],
+  "container": "FrameLayout",
+  "loc_xml": 276,
+  "complexity": "medium",
+  "nesting_depth": 4
+}

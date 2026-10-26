@@ -1,0 +1,21 @@
+{
+  "id": "android_user-interface-samples_fragment_conversation",
+  "repo": "android/user-interface-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "EditText",
+    "ImageButton",
+    "ImageView",
+    "LinearLayout",
+    "TextView",
+    "androidx.recyclerview.widget.RecyclerView",
+    "com.google.android.material.appbar.MaterialToolbar",
+    "com.google.android.material.textfield.TextInputLayout",
+    "com.google.android.samples.insetsanimation.InsetsAnimationLinearLayout"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 99,
+  "complexity": "medium",
+  "nesting_depth": 3
+}

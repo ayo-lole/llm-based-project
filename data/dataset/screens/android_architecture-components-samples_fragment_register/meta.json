@@ -1,0 +1,17 @@
+{
+  "id": "android_architecture-components-samples_fragment_register",
+  "repo": "android/architecture-components-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "EditText",
+    "TextView",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "include"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 124,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

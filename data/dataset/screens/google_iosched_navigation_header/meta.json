@@ -1,0 +1,16 @@
+{
+  "id": "google_iosched_navigation_header",
+  "repo": "google/iosched",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "ImageView",
+    "LinearLayout",
+    "View",
+    "layout"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 43,
+  "complexity": "simple",
+  "nesting_depth": 2
+}

@@ -1,0 +1,15 @@
+{
+  "id": "android_platform-samples_fragment_transition",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "FrameLayout",
+    "TextView",
+    "androidx.constraintlayout.widget.ConstraintLayout"
+  ],
+  "container": "FrameLayout",
+  "loc_xml": 86,
+  "complexity": "simple",
+  "nesting_depth": 2
+}

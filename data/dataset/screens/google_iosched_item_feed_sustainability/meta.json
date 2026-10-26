@@ -1,0 +1,19 @@
+{
+  "id": "google_iosched_item_feed_sustainability",
+  "repo": "google/iosched",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "TextView",
+    "View",
+    "androidx.appcompat.widget.AppCompatImageView",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "androidx.constraintlayout.widget.Guideline",
+    "layout"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 114,
+  "complexity": "medium",
+  "nesting_depth": 2
+}

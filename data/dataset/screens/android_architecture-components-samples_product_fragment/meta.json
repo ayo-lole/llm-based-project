@@ -1,0 +1,21 @@
+{
+  "id": "android_architecture-components-samples_product_fragment",
+  "repo": "android/architecture-components-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "FrameLayout",
+    "LinearLayout",
+    "TextView",
+    "androidx.recyclerview.widget.RecyclerView",
+    "data",
+    "import",
+    "include",
+    "layout",
+    "variable"
+  ],
+  "container": "FrameLayout",
+  "loc_xml": 72,
+  "complexity": "medium",
+  "nesting_depth": 4
+}

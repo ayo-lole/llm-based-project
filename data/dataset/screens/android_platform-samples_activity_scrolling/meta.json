@@ -1,0 +1,15 @@
+{
+  "id": "android_platform-samples_activity_scrolling",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "androidx.coordinatorlayout.widget.CoordinatorLayout",
+    "com.google.android.material.appbar.AppBarLayout",
+    "include"
+  ],
+  "container": "androidx.coordinatorlayout.widget.CoordinatorLayout",
+  "loc_xml": 38,
+  "complexity": "simple",
+  "nesting_depth": 2
+}

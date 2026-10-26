@@ -1,0 +1,25 @@
+{
+  "id": "google_iosched_fragment_schedule",
+  "repo": "google/iosched",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "ProgressBar",
+    "TextView",
+    "View",
+    "androidx.appcompat.widget.Toolbar",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "androidx.coordinatorlayout.widget.CoordinatorLayout",
+    "androidx.recyclerview.widget.RecyclerView",
+    "com.google.android.material.appbar.AppBarLayout",
+    "com.google.samples.apps.iosched.widget.CustomSwipeRefreshLayout",
+    "com.google.samples.apps.iosched.widget.FadingSnackbar",
+    "data",
+    "layout",
+    "variable"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 147,
+  "complexity": "medium",
+  "nesting_depth": 4
+}

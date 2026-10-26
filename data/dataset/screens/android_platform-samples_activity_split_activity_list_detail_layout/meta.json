@@ -1,0 +1,15 @@
+{
+  "id": "android_platform-samples_activity_split_activity_list_detail_layout",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "RelativeLayout",
+    "TextView"
+  ],
+  "container": "RelativeLayout",
+  "loc_xml": 45,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

@@ -1,0 +1,18 @@
+{
+  "id": "android_architecture-components-samples_donut_entry_dialog",
+  "repo": "android/architecture-components-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "EditText",
+    "RatingBar",
+    "TextView",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "androidx.constraintlayout.widget.Guideline"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 144,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

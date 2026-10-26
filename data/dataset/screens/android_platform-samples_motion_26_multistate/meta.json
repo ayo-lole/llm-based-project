@@ -1,0 +1,17 @@
+{
+  "id": "android_platform-samples_motion_26_multistate",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "ImageView",
+    "View",
+    "androidx.constraintlayout.motion.widget.MotionLayout",
+    "androidx.constraintlayout.utils.widget.ImageFilterButton"
+  ],
+  "container": "androidx.constraintlayout.motion.widget.MotionLayout",
+  "loc_xml": 284,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

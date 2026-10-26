@@ -1,0 +1,14 @@
+{
+  "id": "android_uamp_preference",
+  "repo": "android/uamp",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "LinearLayout",
+    "TextView"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 31,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

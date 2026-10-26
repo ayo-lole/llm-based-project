@@ -1,0 +1,16 @@
+{
+  "id": "android_platform-samples_widget_weather_forecast_large",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "ImageView",
+    "LinearLayout",
+    "TextView",
+    "include"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 233,
+  "complexity": "simple",
+  "nesting_depth": 3
+}

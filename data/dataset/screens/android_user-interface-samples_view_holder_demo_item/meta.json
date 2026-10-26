@@ -1,0 +1,15 @@
+{
+  "id": "android_user-interface-samples_view_holder_demo_item",
+  "repo": "android/user-interface-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "LinearLayout",
+    "TextView"
+  ],
+  "container": "LinearLayout",
+  "loc_xml": 32,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

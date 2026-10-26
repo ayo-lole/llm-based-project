@@ -1,0 +1,16 @@
+{
+  "id": "android_user-interface-samples_fragment_sweets_details",
+  "repo": "android/user-interface-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "ImageView",
+    "ScrollView",
+    "TextView",
+    "androidx.constraintlayout.widget.ConstraintLayout"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 68,
+  "complexity": "simple",
+  "nesting_depth": 2
+}

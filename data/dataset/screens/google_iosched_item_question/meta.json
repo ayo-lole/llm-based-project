@@ -1,0 +1,18 @@
+{
+  "id": "google_iosched_item_question",
+  "repo": "google/iosched",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "TextView",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "com.google.samples.apps.iosched.widget.SimpleRatingBar",
+    "data",
+    "layout",
+    "variable"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 81,
+  "complexity": "simple",
+  "nesting_depth": 2
+}

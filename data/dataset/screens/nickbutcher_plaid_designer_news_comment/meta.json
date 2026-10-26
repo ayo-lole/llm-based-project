@@ -1,0 +1,16 @@
+{
+  "id": "nickbutcher_plaid_designer_news_comment",
+  "repo": "nickbutcher/plaid",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "ImageView",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "io.plaidapp.core.ui.widget.AuthorTextView",
+    "io.plaidapp.core.ui.widget.BaselineGridTextView"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 80,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

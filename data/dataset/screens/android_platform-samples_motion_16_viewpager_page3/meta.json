@@ -1,0 +1,14 @@
+{
+  "id": "android_platform-samples_motion_16_viewpager_page3",
+  "repo": "android/platform-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "TextView",
+    "androidx.constraintlayout.widget.ConstraintLayout"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 34,
+  "complexity": "simple",
+  "nesting_depth": 1
+}

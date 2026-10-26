@@ -1,0 +1,20 @@
+{
+  "id": "android_databinding-samples_viewmodel_profile",
+  "repo": "android/databinding-samples",
+  "license": "apache-2.0",
+  "layout": "layout.xml",
+  "widgets": [
+    "Button",
+    "ImageView",
+    "ProgressBar",
+    "TextView",
+    "androidx.constraintlayout.widget.ConstraintLayout",
+    "data",
+    "layout",
+    "variable"
+  ],
+  "container": "androidx.constraintlayout.widget.ConstraintLayout",
+  "loc_xml": 166,
+  "complexity": "medium",
+  "nesting_depth": 2
+}
