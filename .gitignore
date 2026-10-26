@@ -12,6 +12,7 @@ data/cache/
 outputs/
 apps/harness/**/build/
 apps/harness/.gradle/
+apps/harness/.kotlin/
 apps/harness_w*/
 *.apk
 local.properties

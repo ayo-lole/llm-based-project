@@ -2,7 +2,7 @@
 
 Command-line research pipeline only. There is no web UI.
 
-Companion DOCX: `docs/INSTALLATION_AND_SETUP_GUIDE.docx`. Protocol constants: `docs/PROTOCOL.md`.
+Companion DOCX: `docs/SETUP_GUIDE.docx`. Protocol constants: `docs/PROTOCOL.md`.
 
 ## 1. Environment
 
