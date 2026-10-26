@@ -45,9 +45,9 @@ def test_missing():
 
 
 def test_r_import_normalise():
-    src = "package demo\nimport com.app.R\nfun x() { R.string.hi }\n"
+    src = "package harness\nimport com.app.R\nfun x() { R.string.hi }\n"
     out = _normalise_r_imports(src)
-    assert "import demo.R" in out
+    assert "import harness.R" in out
     assert "com.app.R" not in out
 
 

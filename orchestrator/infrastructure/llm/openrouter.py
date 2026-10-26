@@ -16,6 +16,21 @@ PRICES = {
 }
 
 
+def make_cache_key(model: str, temperature: float, system: str | None, prompt: str, run_index: int) -> str:
+    return hashlib.sha256(
+        json.dumps(
+            {
+                "model": model,
+                "temp": temperature,
+                "sys": system,
+                "p": prompt,
+                "run_index": run_index,
+            },
+            sort_keys=True,
+        ).encode()
+    ).hexdigest()
+
+
 class OpenRouterClient:
     def __init__(self, model: str, call_log=None, use_cache: bool = True):
         if model not in MODELS:
@@ -42,26 +57,19 @@ class OpenRouterClient:
         scenario: str,
         preset: str,
     ) -> tuple[str, dict]:
-        key = hashlib.sha256(
-            json.dumps(
-                {
-                    "model": self.model,
-                    "temp": self.temperature,
-                    "sys": system,
-                    "p": prompt,
-                    "run_index": run_index,
-                },
-                sort_keys=True,
-            ).encode()
-        ).hexdigest()
+        key = make_cache_key(self.model, self.temperature, system, prompt, run_index)
         cache_dir = CACHE / "llm"
         path = cache_dir / f"{key}.txt"
         meta_path = cache_dir / f"{key}.meta.json"
         if self.use_cache and path.exists():
             meta = json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.exists() else {}
+            meta["cache_key"] = key
+            meta["cached"] = True
             self._log(key, True, meta, run_index, iteration, screen_id, scenario, preset)
             return path.read_text(encoding="utf-8"), meta
         text, meta = self._call(prompt, system)
+        meta["cache_key"] = key
+        meta["cached"] = False
         cache_dir.mkdir(parents=True, exist_ok=True)
         path.write_text(text, encoding="utf-8")
         meta_path.write_text(json.dumps(meta), encoding="utf-8")
@@ -106,11 +114,15 @@ class OpenRouterClient:
             cost = (tin * pin + (tout or 0) * pout) / 1e6
         choice = resp.choices[0]
         returned = getattr(resp, "model", None)
-        if returned and returned != self.model and not str(returned).startswith(self.model):
+        if returned is None:
+            raise RuntimeError("Provider omitted model_returned; no fallback is permitted in strict mode")
+        if str(returned) != self.model:
             raise RuntimeError(f"model_returned {returned!r} does not match requested {self.model!r}")
+        finish = getattr(choice, "finish_reason", None)
         meta = {
-            "model_returned": returned or self.model,
-            "finish_reason": getattr(choice, "finish_reason", None),
+            "model_returned": returned,
+            "finish_reason": finish,
+            "truncated": finish == "length",
             "tokens_in": tin,
             "tokens_out": tout,
             "tokens_reasoning": reasoning,

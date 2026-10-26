@@ -16,7 +16,7 @@ _KOTLIN_KW = {
 
 
 def _mask_strings(text: str) -> str:
-    return re.sub(r'"(?:\\.|[^"\\])*"', '"STR"', text)
+    return re.sub(r'"(?:\\.|[^"\\])*"', " ", text)
 
 
 def _tokens(text: str) -> list[str]:
@@ -28,6 +28,7 @@ def _ngrams(tokens: list[str], n: int) -> Counter:
 
 
 def bleu4(hyp: str, ref: str, eps: float = 1e-9) -> float:
+    """BLEU-4 with Chen & Cherry (2014) method-1 smoothing."""
     ht, rt = _tokens(hyp), _tokens(ref)
     if not ht or not rt:
         return 0.0
@@ -35,9 +36,10 @@ def bleu4(hyp: str, ref: str, eps: float = 1e-9) -> float:
     for n in range(1, 5):
         hc, rc = _ngrams(ht, n), _ngrams(rt, n)
         overlap = sum(min(hc[g], rc[g]) for g in hc)
-        precs.append((overlap + 1) / (max(sum(hc.values()), 1) + 1))
+        hyp_n = max(sum(hc.values()), 0)
+        precs.append((overlap + eps) / (hyp_n + eps))
     bp = 1.0 if len(ht) >= len(rt) else math.exp(1 - len(rt) / max(len(ht), 1))
-    return bp * math.exp(sum(math.log(p + eps) for p in precs) / 4)
+    return bp * math.exp(sum(math.log(max(p, eps)) for p in precs) / 4)
 
 
 def keyword_unigram(hyp: str, ref: str, weight: float = 5.0) -> float:
@@ -79,10 +81,10 @@ def subtree_match(hyp: str, ref: str, depth: int = 3) -> float:
         return counts
 
     hc, rc = collect(hyp), collect(ref)
-    if not hc or not rc:
+    if not rc:
         return 0.0
-    overlap = sum(min(hc[k], rc[k]) for k in hc)
-    return overlap / max(sum(hc.values()), 1)
+    present = sum(1 for k in rc if k in hc)
+    return present / len(rc)
 
 
 def codebleu_adapted(hyp: str, ref: str) -> float:

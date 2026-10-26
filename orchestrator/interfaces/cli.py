@@ -12,7 +12,17 @@ from orchestrator.application.run_experiment import (
     run_b0_screens,
     run_pool,
 )
-from orchestrator.config import GROUND_TRUTH, HARNESS, MODELS, RESULTS, generation_settings, load_templates
+from orchestrator.config import (
+    DEFAULT_N_RUNS,
+    DEFAULT_WORKERS,
+    GROUND_TRUTH,
+    HARNESS,
+    MODELS,
+    RESULTS,
+    SMOKE_RESULTS,
+    generation_settings,
+    load_templates,
+)
 from orchestrator.domain.models import ABLATION_PRESETS, SCENARIOS
 from orchestrator.infrastructure.dataset.benchmark_freeze import freeze_benchmark, load_benchmark_ids
 from orchestrator.infrastructure.dataset.ground_truth_select import select_ground_truth
@@ -32,6 +42,11 @@ from orchestrator.infrastructure.storage.result_store import JsonResultStore
 def _screens(limit: int | None) -> list[str]:
     ids = load_benchmark_ids()
     return ids[:limit] if limit else ids
+
+
+def _store_for(args: argparse.Namespace) -> JsonResultStore:
+    smoke = getattr(args, "limit", None) is not None or getattr(args, "n_runs", DEFAULT_N_RUNS) < 3
+    return JsonResultStore(SMOKE_RESULTS if smoke else RESULTS)
 
 
 def cmd_preflight(_args: argparse.Namespace) -> int:
@@ -76,9 +91,9 @@ def cmd_mine(args: argparse.Namespace) -> int:
     return 0
 
 
-def cmd_freeze(args: argparse.Namespace) -> int:
+def cmd_freeze(_args: argparse.Namespace) -> int:
     payload = freeze_benchmark(overwrite=False)
-    print(f"froze {payload['count']} screens; funnel={payload['funnel']}")
+    print(f"froze {payload['count']} screens; funnel={payload['funnel']}; available={payload['available']}")
     return 0
 
 
@@ -92,7 +107,7 @@ def cmd_verify_gt(_args: argparse.Namespace) -> int:
     data = verify_ground_truth()
     ok = sum(1 for s in data["screens"] if s.get("verified"))
     print(f"verified {ok}/{len(data['screens'])}")
-    return 0
+    return 0 if ok == len(data["screens"]) else 1
 
 
 def cmd_dataset_sources(_args: argparse.Namespace) -> int:
@@ -103,17 +118,17 @@ def cmd_dataset_sources(_args: argparse.Namespace) -> int:
 
 
 def cmd_make_workers(args: argparse.Namespace) -> int:
-    paths = make_workers(args.n)
+    paths = make_workers(args.n, serials=getattr(args, "serials", None))
     print(f"created {len(paths)} workers")
     return 0
 
 
 def _pool_worker(payload: dict) -> str:
-
     serials = payload.get("serials") or []
     worker = payload["worker"]
     serial = serials[worker] if worker < len(serials) else None
     harness = Path(payload["harness"]) if payload.get("harness") else HARNESS
+    store = JsonResultStore(Path(payload["results_root"]) if payload.get("results_root") else RESULTS)
     client = OpenRouterClient(payload["model"], call_log=JsonlCallLog())
     migrate_from_ports(
         payload,
@@ -124,24 +139,26 @@ def _pool_worker(payload: dict) -> str:
         compiler=GradleCompiler(),
         analyzer=GradleStaticAnalyzer(),
         runtime=AdbRuntimeChecker(),
-        store=JsonResultStore(),
+        store=store,
         harness_dir=harness,
         device_serial=serial,
-        skip_android_lint=payload.get("skip_android_lint", True),
+        skip_android_lint=False,
         generation_settings=generation_settings(),
     )
     return payload["screen_id"]
 
 
 def cmd_run(args: argparse.Namespace) -> int:
+    strict = not getattr(args, "no_strict", False)
     if not (HARNESS / "gradlew.bat").exists() and not (HARNESS / "gradlew").exists():
         raise RuntimeError("Harness unavailable")
+    if strict and not adb_device_ready():
+        raise RuntimeError("Strict mode: an API 34 emulator is required; runtime is not_evaluated without a device")
     kind = args.kind
     screens = _screens(args.limit)
     workers = args.workers
     serials = args.serials or []
-    skip_lint = not args.run_lint
-    store = JsonResultStore()
+    store = _store_for(args)
     if kind == "b0":
         n = run_b0_screens(
             screens,
@@ -152,12 +169,15 @@ def cmd_run(args: argparse.Namespace) -> int:
             AdbRuntimeChecker(),
             store,
             harness_dir=HARNESS,
-            skip_android_lint=skip_lint,
+            skip_android_lint=False,
             generation_settings=generation_settings(),
         )
         print(f"b0 wrote {n} new records")
         return 0
     models = tuple(args.models) if args.models else MODELS
+    unknown = [m for m in models if m not in MODELS]
+    if unknown:
+        raise RuntimeError(f"Unknown model(s) {unknown}; expected {MODELS}")
     if kind == "ablation":
         jobs = iter_jobs(models, ("s4",), screens, args.n_runs, list(ABLATION_PRESETS))
     else:
@@ -179,14 +199,22 @@ def cmd_run(args: argparse.Namespace) -> int:
                 store=store,
                 harness_dir=HARNESS,
                 device_serial=serials[0] if serials else None,
-                skip_android_lint=skip_lint,
+                skip_android_lint=False,
                 generation_settings=generation_settings(),
             )
         return 0
     payloads = []
     for i, job in enumerate(pending):
         w = (i % workers) + 1
-        payloads.append({**job, "worker": w - 1, "harness": str(worker_dir(w)), "serials": serials, "skip_android_lint": skip_lint})
+        payloads.append(
+            {
+                **job,
+                "worker": w - 1,
+                "harness": str(worker_dir(w)),
+                "serials": serials,
+                "results_root": str(store.root),
+            }
+        )
     run_pool(payloads, _pool_worker, workers)
     return 0
 
@@ -207,8 +235,9 @@ def cmd_collect(_args: argparse.Namespace) -> int:
 def cmd_validate(_args: argparse.Namespace) -> int:
     from orchestrator.evaluation.validate import validate
 
-    print(validate())
-    return 0
+    report = validate()
+    print(report)
+    return 0 if report.get("ok") else 1
 
 
 def cmd_stats(_args: argparse.Namespace) -> int:
@@ -249,8 +278,20 @@ def cmd_figures(_args: argparse.Namespace) -> int:
     return 0
 
 
+def _add_run_flags(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument("--workers", type=int, default=DEFAULT_WORKERS)
+    parser.add_argument("--limit", type=int, default=None)
+    parser.add_argument("--n-runs", type=int, default=DEFAULT_N_RUNS)
+    parser.add_argument("--models", nargs="*")
+    parser.add_argument("--serials", nargs="*")
+    parser.add_argument("--no-strict", action="store_true")
+
+
 def build_parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(prog="python -m orchestrator")
+    p = argparse.ArgumentParser(
+        prog="python -m orchestrator",
+        epilog="Command-line research pipeline only.",
+    )
     sub = p.add_subparsers(dest="command", required=True)
     sub.add_parser("mine").set_defaults(func=cmd_mine)
     sub.add_parser("freeze-benchmark").set_defaults(func=cmd_freeze)
@@ -259,17 +300,16 @@ def build_parser() -> argparse.ArgumentParser:
     sub.add_parser("dataset-sources").set_defaults(func=cmd_dataset_sources)
     sub.add_parser("preflight").set_defaults(func=cmd_preflight)
     mw = sub.add_parser("make-workers")
-    mw.add_argument("n", type=int)
+    mw.add_argument("n", type=int, nargs="?", default=DEFAULT_WORKERS)
+    mw.add_argument("--serials", nargs="*")
     mw.set_defaults(func=cmd_make_workers)
     run = sub.add_parser("run")
     run.add_argument("kind", choices=["matrix", "ablation", "b0"])
-    run.add_argument("--workers", type=int, default=1)
-    run.add_argument("--limit", type=int, default=None)
-    run.add_argument("--n-runs", type=int, default=3)
-    run.add_argument("--models", nargs="*")
-    run.add_argument("--serials", nargs="*")
-    run.add_argument("--run-lint", action="store_true")
+    _add_run_flags(run)
     run.set_defaults(func=cmd_run)
+    b0 = sub.add_parser("b0")
+    _add_run_flags(b0)
+    b0.set_defaults(func=cmd_run, kind="b0")
     sub.add_parser("collect").set_defaults(func=cmd_collect)
     sub.add_parser("validate").set_defaults(func=cmd_validate)
     sub.add_parser("stats").set_defaults(func=cmd_stats)
@@ -279,7 +319,6 @@ def build_parser() -> argparse.ArgumentParser:
     sub.add_parser("code-similarity").set_defaults(func=cmd_code_similarity)
     sub.add_parser("visual-fidelity").set_defaults(func=cmd_visual)
     sub.add_parser("figures").set_defaults(func=cmd_figures)
-    # mine repos optional
     mine = [s for s in sub.choices.values() if s.prog.endswith("mine")][0]
     mine.add_argument("--repos", nargs="*")
     return p

@@ -6,7 +6,7 @@ from xml.sax.saxutils import escape
 
 from orchestrator.config import DATASET, GENERATED_KT, HARNESS, HARNESS_ENTRY_COMPOSABLE
 
-PACKAGE_PREFIX = "package demo\n\n"
+PACKAGE_PREFIX = "package harness\n\n"
 
 
 def _extract_kotlin(raw: str) -> str:
@@ -128,7 +128,7 @@ def _generated_kt(harness_dir: Path | None, path: Path | None) -> Path:
     if path is not None:
         return path
     if harness_dir is not None:
-        return harness_dir / "app" / "src" / "main" / "java" / "demo" / "Generated.kt"
+        return harness_dir / "app" / "src" / "main" / "java" / "harness" / "Generated.kt"
     return GENERATED_KT
 
 
@@ -161,17 +161,17 @@ def _humanise(name: str) -> str:
 
 
 def _normalise_r_imports(kotlin: str) -> str:
-    kotlin = re.sub(r"^import\s+[\w.]+(?:\.R|\.R\.\*)\s*$", "import demo.R", kotlin, flags=re.MULTILINE)
-    if "import demo.R" not in kotlin and RES_REF.search(kotlin):
+    kotlin = re.sub(r"^import\s+[\w.]+(?:\.R|\.R\.\*)\s*$", "import harness.R", kotlin, flags=re.MULTILINE)
+    if "import harness.R" not in kotlin and RES_REF.search(kotlin):
         if kotlin.startswith("package "):
             lines = kotlin.splitlines(True)
             insert_at = 1
             while insert_at < len(lines) and lines[insert_at].startswith("import "):
                 insert_at += 1
-            lines.insert(insert_at, "import demo.R\n")
+            lines.insert(insert_at, "import harness.R\n")
             kotlin = "".join(lines)
         else:
-            kotlin = "import demo.R\n" + kotlin
+            kotlin = "import harness.R\n" + kotlin
     return kotlin
 
 
@@ -222,7 +222,7 @@ def write_resource_stubs(
 
 def _normalize_package(code: str) -> str:
     if re.search(r"^package\s+", code, re.MULTILINE):
-        return re.sub(r"^package\s+[\w.]+", "package demo", code, count=1, flags=re.MULTILINE)
+        return re.sub(r"^package\s+[\w.]+", "package harness", code, count=1, flags=re.MULTILINE)
     return PACKAGE_PREFIX + code
 
 
@@ -238,7 +238,7 @@ class FileHarnessWriter:
         kotlin, entry = ensure_harness_entry(_extract_kotlin(code))
         if not kotlin.startswith("package "):
             kotlin = PACKAGE_PREFIX + kotlin
-        elif not kotlin.startswith("package demo"):
+        elif not kotlin.startswith("package harness"):
             kotlin = _normalize_package(kotlin)
         kotlin = _normalise_r_imports(kotlin)
         n_stubs = write_resource_stubs(kotlin, harness_dir=harness_dir, screen_id=screen_id)

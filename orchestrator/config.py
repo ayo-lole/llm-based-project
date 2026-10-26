@@ -17,10 +17,12 @@ HARNESS = ROOT / "apps" / "harness"
 DATASET = ROOT / "data" / "dataset"
 GROUND_TRUTH = ROOT / "data" / "ground_truth"
 RESULTS = ROOT / "outputs" / "results"
+SMOKE_RESULTS = ROOT / "outputs" / "smoke"
 CACHE = ROOT / "data" / "cache"
 PROMPTS = ORCHESTRATOR / "prompts"
 PROMPT_VERSION_DIR = PROMPTS / "v1.1-thesis"
-GENERATED_KT = HARNESS / "app" / "src" / "main" / "java" / "demo" / "Generated.kt"
+HARNESS_PACKAGE = "harness"
+GENERATED_KT = HARNESS / "app" / "src" / "main" / "java" / HARNESS_PACKAGE / "Generated.kt"
 
 SCENARIO_TEMPLATES = {
     "s1": "s1.txt",
@@ -30,6 +32,27 @@ SCENARIO_TEMPLATES = {
     "refine": "refine.txt",
 }
 HARNESS_ENTRY_COMPOSABLE = "MigrationRoot"
+EXPECTED_BENCHMARK_REPOS = 17
+DEFAULT_WORKERS = 4
+DEFAULT_N_RUNS = 3
+MAX_ITER = 4
+RUNTIME_LAUNCH_S = 10
+
+# Thesis 3.2.2: view-hierarchy depth, widget count, nested lists / dynamic content.
+COMPLEXITY_THRESHOLDS = {
+    "simple_max_depth": 4,
+    "simple_max_widgets": 15,
+    "complex_min_depth": 8,
+    "complex_min_widgets": 35,
+    "list_tags": (
+        "RecyclerView",
+        "ListView",
+        "GridView",
+        "ViewPager",
+        "ViewPager2",
+        "ExpandableListView",
+    ),
+}
 
 
 def generation_settings() -> dict:

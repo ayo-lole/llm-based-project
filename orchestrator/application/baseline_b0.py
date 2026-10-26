@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 import xml.etree.ElementTree as ET
 
-HEADER = """package demo
+HEADER = """package harness
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

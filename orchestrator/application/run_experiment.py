@@ -77,6 +77,7 @@ def migrate_from_ports(
     skip_android_lint: bool,
     generation_settings: dict,
 ) -> MigrationResult:
+    _ = skip_android_lint
     flags = ABLATION_PRESETS.get(job.get("preset") or "", {})
     scenario = job["scenario"]
     return migrate_screen(
@@ -91,7 +92,7 @@ def migrate_from_ports(
         store,
         scenario=scenario,
         max_iter=K if scenario == "s4" else 1,
-        skip_android_lint=skip_android_lint,
+        skip_android_lint=False,
         ablation_label=job.get("preset"),
         run_index=job["run_index"],
         harness_dir=harness_dir,
@@ -114,6 +115,7 @@ def run_b0_screens(
     skip_android_lint: bool,
     generation_settings: dict,
 ) -> int:
+    _ = skip_android_lint
     n = 0
     for sid in screen_ids:
         if store.exists("b0", "b0", sid, 1):
@@ -121,8 +123,13 @@ def run_b0_screens(
         screen = screens.get(sid)
         code, unmapped = transpile(screen.xml)
         _path, n_stubs, entry = writer.write(code, harness_dir=harness_dir, screen_id=sid)
-        compile_res = compiler.assemble(harness_dir)
-        sa = analyzer.analyze(harness_dir, skip_lint=skip_android_lint)
+        if entry == "missing":
+            from orchestrator.domain.models import CompileResult
+
+            compile_res = CompileResult(False, False, False, errors=["No harness entry"])
+        else:
+            compile_res = compiler.assemble(harness_dir)
+        sa = analyzer.analyze(harness_dir, skip_lint=False)
         rt = runtime.check(code, built=compile_res.built, harness_dir=harness_dir)
         compile_d = compile_res.to_dict()
         compile_d.update(rt.to_dict())

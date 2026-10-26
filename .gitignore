@@ -20,3 +20,4 @@ local.properties
 .vscode/
 *.log
 _thesis_extract.txt
+_thesis.txt

@@ -1,10 +1,7 @@
 from __future__ import annotations
 
-import shutil
-import subprocess
 from pathlib import Path
 
-from orchestrator.config import HARNESS
 from orchestrator.domain.models import StaticAnalysisResult
 from orchestrator.infrastructure.harness.gradle import run_gradle
 
@@ -46,12 +43,10 @@ def _parse_lint(text: str, limit: int = 10) -> list[str]:
 
 class GradleStaticAnalyzer:
     def analyze(self, harness_dir: Path | None = None, *, skip_lint: bool = False) -> StaticAnalysisResult:
+        del skip_lint
         detekt_ok, detekt_issues = self._detekt(harness_dir)
         ktlint_ok, ktlint_issues = self._ktlint(harness_dir)
-        if skip_lint:
-            lint_ok, lint_issues = True, []
-        else:
-            lint_ok, lint_issues = self._lint(harness_dir)
+        lint_ok, lint_issues = self._lint(harness_dir)
         return StaticAnalysisResult(
             detekt_ok=detekt_ok,
             ktlint_ok=ktlint_ok,
@@ -68,20 +63,7 @@ class GradleStaticAnalyzer:
         return proc.returncode == 0 and not issues, issues
 
     def _ktlint(self, harness_dir: Path | None) -> tuple[bool, list[str]]:
-        cwd = harness_dir or HARNESS
-        src = cwd / "app" / "src" / "main" / "java"
-        ktlint = shutil.which("ktlint")
-        if not ktlint:
-            return True, []
-        proc = subprocess.run(
-            [ktlint, str(src)],
-            cwd=cwd,
-            capture_output=True,
-            text=True,
-            encoding="utf-8",
-            errors="replace",
-            timeout=120,
-        )
+        proc = run_gradle(":app:ktlintCheck", harness_dir=harness_dir, timeout=180)
         issues = _parse_ktlint(proc.stdout + proc.stderr)
         return proc.returncode == 0, issues
 

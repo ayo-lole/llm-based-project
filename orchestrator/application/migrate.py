@@ -39,18 +39,19 @@ def migrate_screen(
     no_feedback: bool = False,
     no_constraints: bool = False,
     no_static_analysis: bool = False,
-    skip_android_lint: bool = True,
+    skip_android_lint: bool = False,  # lint always runs; kept for port compatibility
     ablation_label: str | None = None,
     run_index: int = 1,
     harness_dir: Path | None = None,
     device_serial: str | None = None,
     generation_settings: dict | None = None,
 ) -> MigrationResult:
+    _ = skip_android_lint
     screen = screens.get(screen_id)
     prompt, system = build_initial_prompt(
         templates, scenario, screen.xml, screen.context, no_constraints=no_constraints
     )
-    raw, _meta = client.generate(
+    raw, meta = client.generate(
         prompt, system, run_index=run_index, iteration=0, screen_id=screen_id,
         scenario=scenario, preset=ablation_label or "",
     )
@@ -59,18 +60,38 @@ def migrate_screen(
     codes: list[str] = []
     converged = False
     settings = generation_settings or {}
+    tokens_in = tokens_out = 0
+    cost = 0.0
+    latency = 0.0
+    last_meta = meta
+    t_wall = time.perf_counter()
+
+    def _acc(m: dict) -> None:
+        nonlocal tokens_in, tokens_out, cost, latency, last_meta
+        last_meta = m or last_meta
+        tokens_in += int(m.get("tokens_in") or 0)
+        tokens_out += int(m.get("tokens_out") or 0)
+        cost += float(m.get("cost_usd") or 0)
+        latency += float(m.get("latency_s") or 0)
+
+    _acc(meta)
 
     for it in range(1, max_iter + 1):
         _path, n_stubs, entry = writer.write(code, harness_dir=harness_dir, screen_id=screen_id)
         codes.append(code)
         t0 = time.perf_counter()
-        compile_res = compiler.assemble(harness_dir)
+        if entry == "missing":
+            from orchestrator.domain.models import CompileResult
+
+            compile_res = CompileResult(False, False, False, errors=["No harness entry"])
+        else:
+            compile_res = compiler.assemble(harness_dir)
         compile_s = time.perf_counter() - t0
         t1 = time.perf_counter()
         if no_static_analysis:
             sa_res = StaticAnalysisResult(True, True, True)
         else:
-            sa_res = analyzer.analyze(harness_dir, skip_lint=skip_android_lint)
+            sa_res = analyzer.analyze(harness_dir, skip_lint=False)
         static_s = time.perf_counter() - t1
         t2 = time.perf_counter()
         runtime_res = runtime.check(
@@ -85,6 +106,7 @@ def migrate_screen(
             compile_res, sa_res, arch_violations,
             compile_only=no_static_analysis,
         )
+        fb = format_feedback(problems)
         history.append(
             IterationRecord(
                 iteration=it,
@@ -101,24 +123,28 @@ def migrate_screen(
                 compile_s=round(compile_s, 3),
                 static_s=round(static_s, 3),
                 runtime_s=round(runtime_s, 3),
+                code=code,
+                feedback=fb,
             )
         )
-        build_ok = compile_res.ok and compile_res.built
+        compile_ok = compile_res.compiled
+        build_ok = compile_res.built
         if no_static_analysis or no_constraints:
-            converged = build_ok
+            converged = compile_ok and build_ok
         else:
-            converged = build_ok and not arch_violations
+            converged = compile_ok and build_ok and not arch_violations
         if converged or scenario != "s4" or it == max_iter:
             break
         if no_feedback:
             break
         refine_prompt, refine_system = build_refine_prompt(
-            templates, code, format_feedback(problems), no_constraints=no_constraints
+            templates, code, fb, no_constraints=no_constraints
         )
-        raw, _ = client.generate(
+        raw, meta = client.generate(
             refine_prompt, refine_system, run_index=run_index, iteration=it,
             screen_id=screen_id, scenario=scenario, preset=ablation_label or "",
         )
+        _acc(meta)
         code = extract_kotlin(raw)
 
     ablation: dict = {}
@@ -143,6 +169,19 @@ def migrate_screen(
         ablation=ablation,
         run_index=run_index,
         generation_settings=settings,
+        model_id=client.model,
+        model_returned=last_meta.get("model_returned"),
+        finish_reason=last_meta.get("finish_reason"),
+        cache_key=last_meta.get("cache_key"),
+        tokens={"in": tokens_in, "out": tokens_out, "reasoning": last_meta.get("tokens_reasoning")},
+        cost=cost,
+        latency=round(latency, 3),
+        wall_s=round(time.perf_counter() - t_wall, 3),
+        is_mock=False,
+        temperature=settings.get("temperature"),
+        max_tokens=settings.get("max_tokens"),
+        seed=settings.get("seed"),
+        prompt_template_version=settings.get("prompt_template_version", "v1.1-thesis"),
     )
     store.save(result)
     return result

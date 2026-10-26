@@ -20,13 +20,19 @@ def select_ground_truth(
     data_root = dataset_root or DATASET
     gt_root = ground_truth_root or GROUND_TRUTH
     bench = benchmark or (data_root / "benchmark_150.json")
-    ids = json.loads(bench.read_text(encoding="utf-8"))["screens"]
+    payload = json.loads(bench.read_text(encoding="utf-8"))
+    raw = payload["screens"]
     by_tier: dict[str, list[str]] = {k: [] for k in QUOTA}
-    for sid in ids:
-        meta_p = data_root / "screens" / sid / "meta.json"
-        if not meta_p.exists():
-            continue
-        tier = str(json.loads(meta_p.read_text(encoding="utf-8")).get("complexity", "")).lower()
+    for item in raw:
+        if isinstance(item, dict):
+            sid = item["id"]
+            tier = str(item.get("complexity", "")).lower()
+        else:
+            sid = item
+            meta_p = data_root / "screens" / sid / "meta.json"
+            if not meta_p.exists():
+                continue
+            tier = str(json.loads(meta_p.read_text(encoding="utf-8")).get("complexity", "")).lower()
         if tier in by_tier:
             by_tier[tier].append(sid)
     rng = random.Random(seed)

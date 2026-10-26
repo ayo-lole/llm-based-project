@@ -172,24 +172,54 @@ def test_compliant_zero():
     assert mvvm_compliant(v)
 
 
+def test_r1_no_viewmodel():
+    v = check_arch_rules(R1)
+    assert any(x.startswith("[R1]") for x in v)
+    assert not mvvm_compliant(v)
+
+
+def test_r1_present_ok():
+    assert not any(x.startswith("[R1]") for x in check_arch_rules(COMPLIANT))
+
+
 def test_r1():
     assert any(x.startswith("[R1]") for x in check_arch_rules(R1))
+
+
+def test_r2_negative():
+    assert not any(x.startswith("[R2]") for x in check_arch_rules(COMPLIANT))
 
 
 def test_r2():
     assert any(x.startswith("[R2]") for x in check_arch_rules(R2))
 
 
+def test_r3_negative():
+    assert not any(x.startswith("[R3]") for x in check_arch_rules(COMPLIANT))
+
+
 def test_r3():
     assert any(x.startswith("[R3]") for x in check_arch_rules(R3))
+
+
+def test_r4_negative():
+    assert not any(x.startswith("[R4]") for x in check_arch_rules(COMPLIANT))
 
 
 def test_r4():
     assert any(x.startswith("[R4]") for x in check_arch_rules(R4))
 
 
+def test_r5_negative():
+    assert not any(x.startswith("[R5]") for x in check_arch_rules(COMPLIANT))
+
+
 def test_r5():
     assert any(x.startswith("[R5]") for x in check_arch_rules(R5))
+
+
+def test_r6_negative():
+    assert not any(x.startswith("[R6]") for x in check_arch_rules(COMPLIANT))
 
 
 def test_r6():

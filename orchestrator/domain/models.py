@@ -121,6 +121,8 @@ class IterationRecord:
     compile_s: float = 0.0
     static_s: float = 0.0
     runtime_s: float = 0.0
+    code: str = ""
+    feedback: str = ""
 
 
 @dataclass
@@ -137,20 +139,57 @@ class MigrationResult:
     ablation: dict = field(default_factory=dict)
     run_index: int = 1
     generation_settings: dict = field(default_factory=dict)
+    provider: str = "openrouter"
+    model_id: str = ""
+    model_returned: str | None = None
+    finish_reason: str | None = None
+    cache_key: str | None = None
+    tokens: dict = field(default_factory=dict)
+    cost: float | None = None
+    latency: float | None = None
+    wall_s: float = 0.0
+    is_mock: bool = False
+    temperature: float | None = None
+    max_tokens: int | None = None
+    seed: int | None = None
+    prompt_template_version: str = "v1.1-thesis"
 
     def to_dict(self) -> dict:
+        settings = self.generation_settings or {}
+        last = self.history[-1] if self.history else None
+        runtime = (last.compile if last else {}) if last else {}
         return {
             "screen_id": self.screen_id,
-            "model": self.model,
             "scenario": self.scenario,
+            "ablation": self.ablation.get("preset", "") if isinstance(self.ablation, dict) else self.ablation,
+            "is_mock": False,
+            "provider": self.provider,
+            "model": self.model,
+            "model_id": self.model_id or self.model,
             "run_index": self.run_index,
+            "timestamp": settings.get("timestamp"),
+            "temperature": self.temperature if self.temperature is not None else settings.get("temperature"),
+            "max_tokens": self.max_tokens if self.max_tokens is not None else settings.get("max_tokens"),
+            "seed": self.seed if self.seed is not None else settings.get("seed"),
+            "prompt_template_version": self.prompt_template_version
+            or settings.get("prompt_template_version", "v1.1-thesis"),
             "converged": self.converged,
             "iterations": self.iterations,
-            "arch_score": self.history[-1].arch_score if self.history else 0,
-            "arch_violations": self.history[-1].arch_violations if self.history else [],
+            "arch_score": last.arch_score if last else 0,
+            "arch_violations": last.arch_violations if last else [],
             "history": [asdict(h) for h in self.history],
-            "ablation": self.ablation,
             "generation_settings": self.generation_settings,
             "code": self.code,
             "codes_per_iteration": self.codes_per_iteration,
+            "model_returned": self.model_returned,
+            "finish_reason": self.finish_reason,
+            "cache_key": self.cache_key,
+            "tokens": self.tokens,
+            "cost": self.cost,
+            "latency": self.latency,
+            "wall_s": self.wall_s,
+            "runtime": {
+                "ok": runtime.get("runtime_ok"),
+                "method": runtime.get("runtime_method"),
+            },
         }

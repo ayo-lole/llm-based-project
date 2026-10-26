@@ -1,7 +1,7 @@
 """
 Mine GitHub for Kotlin Android repos with XML layouts and ViewModel usage.
 
-Run: python -m orchestrator.dataset.mine --max-pages 2
+Run: python -m orchestrator mine --max-pages 2
 Requires GITHUB_TOKEN for higher rate limits.
 """
 
@@ -139,7 +139,35 @@ def find_screen_context(kt_files: dict[str, str], layout_stem: str) -> dict[str,
     return context
 
 
-def slice_layouts(zip_bytes: bytes, repo_name: str, license_id: str, out_root: Path) -> int:
+def fetch_commit_sha(full_name: str) -> str:
+    owner, repo = full_name.split("/", 1)
+    r = requests.get(f"https://api.github.com/repos/{owner}/{repo}", headers=_headers(), timeout=30)
+    if r.status_code != 200:
+        return ""
+    branch = r.json().get("default_branch") or "main"
+    return _commit_of_default(full_name, branch)
+
+
+def _commit_of_default(full_name: str, branch: str) -> str:
+    owner, repo = full_name.split("/", 1)
+    r = requests.get(
+        f"https://api.github.com/repos/{owner}/{repo}/commits/{branch}",
+        headers=_headers(),
+        timeout=30,
+    )
+    if r.status_code != 200:
+        return ""
+    return r.json().get("sha") or ""
+
+
+def slice_layouts(
+    zip_bytes: bytes,
+    repo_name: str,
+    license_id: str,
+    out_root: Path,
+    *,
+    commit_sha: str = "",
+) -> int:
     count = 0
     with zipfile.ZipFile(BytesIO(zip_bytes)) as zf:
         layouts = [n for n in zf.namelist() if "/res/layout/" in n and n.endswith(".xml")]
@@ -171,6 +199,9 @@ def slice_layouts(zip_bytes: bytes, repo_name: str, license_id: str, out_root: P
                 "repo": repo_name,
                 "license": license_id,
                 "license_spdx": license_id,
+                "commit_sha": commit_sha,
+                "path": layout_path,
+                "source_path": layout_path,
                 "layout": "layout.xml",
                 "widgets": widgets[:20],
                 "container": next((w for w in widgets if "Layout" in w), "Unknown"),
@@ -216,7 +247,8 @@ def main() -> None:
         if not repo_has_viewmodel(blob) and full_name not in CURATED_REPOS:
             print("  skip: no ViewModel signal")
             continue
-        n = slice_layouts(blob, full_name, lic or "unknown", screens_dir)
+        sha = fetch_commit_sha(full_name)
+        n = slice_layouts(blob, full_name, lic or "unknown", screens_dir, commit_sha=sha)
         total += n
         print(f"  added {n} screens")
         time.sleep(2)

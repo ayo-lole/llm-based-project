@@ -22,6 +22,10 @@ def verify_ground_truth() -> dict:
             item["violations"] = ["missing reference file"]
             continue
         code = path.read_text(encoding="utf-8")
+        if "TODO generated" in code or "template stub" in code.lower() or "fun MigrationRoot() { TODO" in code:
+            item["verified"] = False
+            item["violations"] = ["rejected template-generated stub"]
+            continue
         writer.write(code, harness_dir=HARNESS, screen_id=item["screen_id"])
         compile_res = compiler.assemble(HARNESS)
         runtime_res = runtime.check(code, built=compile_res.built, harness_dir=HARNESS)

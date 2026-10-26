@@ -39,7 +39,7 @@ def build_initial_prompt(
             "You are a senior Android engineer migrating screens to Jetpack Compose. "
             "Follow MVVM, UDF/state hoisting, separation of concerns, and collectAsStateWithLifecycle(). "
             f"{NO_PROCESSORS} {REPO_CTOR} "
-            "Return only Kotlin source code in package demo."
+            "Return only Kotlin source code in package harness."
         )
     return prompt, system
 
@@ -58,6 +58,6 @@ def build_refine_prompt(
     )
     system = None if no_constraints else (
         "You are a senior Android engineer migrating screens to Jetpack Compose. "
-        f"{NO_PROCESSORS} {REPO_CTOR} Return only Kotlin source code in package demo."
+        f"{NO_PROCESSORS} {REPO_CTOR} Return only Kotlin source code in package harness."
     )
     return prompt, system

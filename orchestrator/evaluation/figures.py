@@ -4,7 +4,7 @@ from collections import defaultdict
 
 from orchestrator.config import ROOT
 from orchestrator.evaluation.collect import collect_rows
-from orchestrator.evaluation.stats import PAPER_244_REFERENCE
+from orchestrator.evaluation.paper244_reference import PAPER_244_REFERENCE
 
 
 def run_figures():
@@ -21,6 +21,12 @@ def run_figures():
         if not subset:
             return float("nan")
         return sum(1 for r in subset if r[field]) / len(subset)
+
+    def viol(sc):
+        subset = [r for r in rows if r["scenario"] == sc and not r["preset"]]
+        if not subset:
+            return float("nan")
+        return sum(len(r["arch_violations"]) for r in subset) / len(subset)
 
     def save(name: str):
         plt.tight_layout()
@@ -47,6 +53,16 @@ def run_figures():
     plt.ylabel("MVVM compliance")
     plt.legend()
     save("figure_4.2")
+
+    paper_v = [PAPER_244_REFERENCE[s].get("violations", float("nan")) for s in scenarios]
+    thesis_v = [viol(s) for s in scenarios]
+    plt.figure()
+    plt.plot(x, paper_v, marker="o", label="Paper 244")
+    plt.plot(x, thesis_v, marker="s", label="Thesis")
+    plt.xticks(x, scenarios)
+    plt.ylabel("Mean R1–R6 violations")
+    plt.legend()
+    save("figure_violations")
 
     presets = ["no_feedback_loop", "no_arch_constraint", "no_static_analysis"]
     compile_ab = []

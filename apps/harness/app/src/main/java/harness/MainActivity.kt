@@ -1,4 +1,4 @@
-package demo
+package harness
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

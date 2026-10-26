@@ -77,3 +77,20 @@ forbidden_modules = [
     "orchestrator.interfaces",
     "orchestrator.config",
 ]
+
+[[tool.importlinter.contracts]]
+name = "Evaluation imports inward only"
+type = "forbidden"
+source_modules = ["orchestrator.evaluation"]
+forbidden_modules = [
+    "orchestrator.interfaces",
+]
+
+[[tool.importlinter.contracts]]
+name = "Infrastructure imports inward only"
+type = "forbidden"
+source_modules = ["orchestrator.infrastructure"]
+forbidden_modules = [
+    "orchestrator.evaluation",
+    "orchestrator.interfaces",
+]

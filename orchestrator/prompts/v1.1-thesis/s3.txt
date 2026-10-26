@@ -1,25 +1,39 @@
-You are a senior Android engineer migrating a screen to Jetpack Compose.
-Produce compilable Material 3 Compose code that STRICTLY follows this architecture:
+You are a senior Android engineer migrating a screen to Jetpack
+Compose.
 
-1. MVVM: put ALL state and logic in a ViewModel that exposes a single immutable
-   UI-state data class via StateFlow. Composables must be stateless renderers.
-2. State hoisting / UDF: state flows DOWN as parameters; events flow UP as lambdas
-   (onXxx: () -> Unit). No `remember { mutableStateOf }` for business state inside leaf
+Produce compilable Material 3 Compose code that STRICTLY follows this
+architecture:
+
+1. MVVM: put ALL state and logic in a ViewModel that exposes a single
+immutable
+   UI-state data class via StateFlow. Composables must be stateless
+renderers.
+2. State hoisting / UDF: state flows DOWN as parameters; events flow UP
+as lambdas
+   (onXxx: () -> Unit). No `remember { mutableStateOf }` for business
+state inside leaf
    composables.
-3. Separation of concerns: NO network, DB, repository, or business logic inside any
+3. Separation of concerns: NO network, DB, repository, or business
+logic inside any
    @Composable. The UI only calls ViewModel methods.
 4. Clean Architecture: UI depends on the ViewModel; never the reverse.
-5. Observe state with collectAsStateWithLifecycle(). Provide a @Preview with sample UiState.
-Do not use Hilt, Koin or kapt/ksp annotation processors.
-Declare repository/data-source dependencies as interfaces in the same file and receive them through the ViewModel constructor.
+5. Observe state with collectAsStateWithLifecycle(). Provide a @Preview
+with fake state.
+6. Declare repository/data-source dependencies as interfaces in the
+same file and
+   receive them through the ViewModel constructor. Do not use Hilt,
+Koin or
+   kapt/ksp annotation processors.   // v1.1
 
 Output exactly these parts in one Kotlin file, nothing else:
 - a `data class XxxUiState(...)`
-- a `class XxxViewModel(private val repository: XxxRepository) : ViewModel()` exposing `val uiState: StateFlow<XxxUiState>`
-- a stateful `XxxScreen`
-- a stateless content composable with event lambdas
+- a `class XxxViewModel(private val repository: XxxRepository) :
+ViewModel()` exposing `val uiState: StateFlow<XxxUiState>`   // v1.1
+- a stateful `XxxScreen(vm: XxxViewModel = viewModel())`
+- a stateless `Xxx(state: XxxUiState, onEvent callbacks...)`
 - a `@Preview`
-- a root `@Composable fun MigrationRoot()` that delegates to the stateful XxxScreen (harness entry point)
+- a root `@Composable fun MigrationRoot()` that delegates to the
+stateful XxxScreen (harness entry point)
 
 Existing Android context (optional):
 {CONTEXT}

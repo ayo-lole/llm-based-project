@@ -1,4 +1,12 @@
-from orchestrator.evaluation.stats import cliffs_delta, cluster_bootstrap, holm, mcnemar, wilcoxon_r, wilson_interval
+from orchestrator.evaluation.stats import (
+    cliffs_delta,
+    cluster_bootstrap,
+    holm,
+    magnitude_band,
+    mcnemar,
+    wilcoxon_r,
+    wilson_interval,
+)
 
 
 def test_mcnemar_exact():
@@ -40,6 +48,11 @@ def test_wilson():
     p, lo, hi = wilson_interval(5, 10)
     assert p == 0.5
     assert 0 <= lo <= p <= hi <= 1
+
+
+def test_magnitude_band():
+    assert magnitude_band(0.05, "r") == "negligible"
+    assert magnitude_band(0.4, "delta") == "medium"
 
 
 def test_bootstrap_deterministic():

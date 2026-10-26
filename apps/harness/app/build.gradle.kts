@@ -3,14 +3,15 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose")
     id("io.gitlab.arturbosch.detekt")
+    id("org.jlleitschuh.gradle.ktlint")
 }
 
 android {
-    namespace = "demo"
+    namespace = "harness"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "demo.harness"
+        applicationId = "harness"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -58,4 +59,9 @@ detekt {
     buildUponDefaultConfig = true
     config.setFrom(files("${rootProject.projectDir}/detekt.yml"))
     source.setFrom("src/main/java")
+}
+
+ktlint {
+    version.set("1.3.1")
+    android.set(true)
 }

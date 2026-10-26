@@ -14,3 +14,12 @@ def test_device_present_emulator_failure_is_final(monkeypatch):
     out = AdbRuntimeChecker().check("fun MigrationRoot() { Text(\"a\") }", built=True)
     assert out.ok is False
     assert out.method == "emulator"
+
+
+def test_no_device_is_not_evaluated(monkeypatch):
+    from orchestrator.infrastructure.harness import runtime_adb as rt
+
+    monkeypatch.setattr(rt, "adb_device_ready", lambda serial=None: False)
+    out = AdbRuntimeChecker().check("fun MigrationRoot() { Text(\"a\") }", built=True)
+    assert out.method == "not_evaluated"
+    assert out.ok is False

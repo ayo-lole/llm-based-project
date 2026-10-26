@@ -2,32 +2,18 @@
 
 Command-line research artifact for the graduation thesis *Architecture-Constrained UI Migration: Improving LLM-based Translation from Android XML Layouts to Jetpack Compose with MVVM Compliance* (Dang Vu Quynh Huong, UEH). It re-executes the protocol of Paper 244 (Nguyen & Dang, ICAIN 2026): constraint-aware prompting plus a static-analysis-guided refinement loop (k = 4, rules R1–R6) on a stratified 150-screen Apache-2.0 benchmark.
 
-This repository is a CLI pipeline only. It does not include a web app, demo server, or GUI.
+This repository is a **CLI pipeline only**. It does not include a web app, HTTP server, `serve` command, or dashboard. `python -m orchestrator` and `python -m orchestrator.main` are the same entry point.
 
 ## Architecture
 
-```mermaid
-flowchart TD
-  CLI[python -m orchestrator] --> APP[application use cases]
-  APP --> DOM[domain: R1-R6, scoring]
-  CLI --> INF[infrastructure adapters]
-  INF --> APP
-  CLI --> EVAL[evaluation]
-  EVAL --> DOM
-  INF --> OR[OpenRouter]
-  INF --> GR[Gradle harness]
-  INF --> DS[data/dataset]
-```
-
-See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for Clean Architecture layers and import-linter contracts.
 
 ## Requirements
 
 - Python ≥ 3.11
 - JDK 17
 - Android SDK with an API 34 emulator
-- Gradle wrapper (in `apps/harness`)
-- ktlint on PATH (optional but used when present)
+- Gradle wrapper in `apps/harness`
 - OpenRouter account
 
 Target operator environment: Windows 11 + PowerShell; Linux and macOS are also supported (`pathlib` only).
@@ -41,55 +27,53 @@ pip install -e ".[dev]"
 Copy-Item .env.example .env
 ```
 
-Put your own OpenRouter key in `.env`. Never commit `.env`.
+Put your own OpenRouter key in `.env` (`OPENROUTER_API_KEY` is empty in `.env.example`). Never commit `.env`. The key is never logged.
 
-## Usage
+The full operator sequence is in [docs/SETUP_GUIDE.md](docs/SETUP_GUIDE.md). Protocol constants: [docs/PROTOCOL.md](docs/PROTOCOL.md). Further notes: [docs/](docs/).
+
+## Commands (guide order)
 
 All commands: `python -m orchestrator <command>`.
 
-1. `preflight`
-2. `freeze-benchmark`
-3. `select-ground-truth` then `verify-ground-truth`
-4. `make-workers N`
-5. `run matrix|ablation|b0 --workers N`
-6. `validate`
-7. `collect`
-8. `stats`
-9. `labeling prepare` then `labeling score`
-10. `code-similarity`
-11. `visual-fidelity`
-12. `figures`
+1. `mine`
+2. `dataset-sources`
+3. `freeze-benchmark`
+4. `select-ground-truth` then `verify-ground-truth`
+5. `preflight`
+6. `make-workers` (default N = 4)
+7. `run {b0|matrix|ablation}` (alias: `b0`); defaults `--workers 4`, `--n-runs 3`
+8. `collect`
+9. `validate`
+10. `stats`
+11. `labeling prepare` then `labeling score`
+12. `code-similarity`
+13. `visual-fidelity`
+14. `figures`
 
-Dataset helpers: `mine`, `dataset-sources`.
+`--limit` or `--n-runs` < 3 stores smoke-test records under `outputs/smoke`, not `outputs/results`.
 
-Runs are resumable per result file. `run` is strict: it does not skip the harness or substitute another model.
-
-## Protocol summary
-
-Scenarios B0 / S1–S4, k = 4, models `openai/gpt-4o`, `google/gemini-2.5-flash`, `anthropic/claude-sonnet-4`, temperature 0.2, `max_tokens` 8192. R1–R6 and the statistical tests are specified in [docs/PROTOCOL.md](docs/PROTOCOL.md).
+`run` is strict by default: missing harness, unknown model, `model_returned` mismatch, or no emulator aborts the run.
 
 ## Data sources
 
-Screens under `data/dataset` currently come from eight Apache-2.0 repositories (counts from `meta.json`): `android/architecture-components-samples` (34), `android/databinding-samples` (4), `android/platform-samples` (97), `android/testing-samples` (10), `android/uamp` (13), `android/user-interface-samples` (52), `google/iosched` (44), `nickbutcher/plaid` (15). Generate the provenance table with:
+Screens under `data/dataset` currently come from eight Apache-2.0 GitHub repositories (counts from `meta.json`):
 
-```powershell
-python -m orchestrator dataset-sources
-```
+| Repository | License | Screens |
+|---|---|---|
+| [android/architecture-components-samples](https://github.com/android/architecture-components-samples) | Apache-2.0 | 34 |
+| [android/databinding-samples](https://github.com/android/databinding-samples) | Apache-2.0 | 4 |
+| [android/platform-samples](https://github.com/android/platform-samples) | Apache-2.0 | 97 |
+| [android/testing-samples](https://github.com/android/testing-samples) | Apache-2.0 | 10 |
+| [android/uamp](https://github.com/android/uamp) | Apache-2.0 | 13 |
+| [android/user-interface-samples](https://github.com/android/user-interface-samples) | Apache-2.0 | 52 |
+| [google/iosched](https://github.com/google/iosched) | Apache-2.0 | 44 |
+| [nickbutcher/plaid](https://github.com/nickbutcher/plaid) | Apache-2.0 | 15 |
 
-That command reads every `meta.json`, groups by repository, and confirms the license through the GitHub API. The table is written to [docs/DATASET_SOURCES.md](docs/DATASET_SOURCES.md). Only repositories actually present in `data/dataset` are listed.
-
-## Third-party code
-
-The screens are redistributed with attribution under Apache-2.0. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) (generated by the same command). Keep each upstream LICENSE text, or a link to it, per Apache-2.0 §4.
+Regenerate the provenance table with `python -m orchestrator dataset-sources` → [docs/DATASET_SOURCES.md](docs/DATASET_SOURCES.md) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). That command reports the number of distinct repositories in `benchmark_150.json` (thesis states 17) and warns if the computed number differs.
 
 ## Reproducibility
 
-- Call log (JSONL): timestamp, cache key, cached flag, requested and returned model, run_index, temperature, max_tokens, reasoning, prompt version, seed, tokens, cost_usd, latency, finish_reason, screen, scenario, preset, iteration.
-- Cache key = SHA-256(model, temperature, system prompt, prompt, run_index). Runs 2–3 are independent API calls.
-- Strict mode on `run`: unknown model, missing harness, or `model_returned` mismatch raises.
-- Gemini 2.0 Flash and Claude 3.x Sonnet are no longer served; substitutes are listed above.
-
-This tree does not contain experimental result numbers. Tables are produced only after a real run.
+Call log: `outputs/results/_calls/calls.jsonl` (Table 11 fields). Result JSON follows Appendix E (`is_mock` is always false). Paper 244 reference charts use constants in `orchestrator/evaluation/paper244_reference.py` only.
 
 ## License and citation
 

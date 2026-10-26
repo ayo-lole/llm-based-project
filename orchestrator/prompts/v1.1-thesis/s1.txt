@@ -1,3 +1,5 @@
-Convert this Android XML layout to Jetpack Compose. Do not use Hilt, Koin or kapt/ksp annotation processors. Return only Kotlin code.
+Convert this Android XML layout to Jetpack Compose. Return only Kotlin
+code.
+Do not use Hilt, Koin or kapt/ksp annotation processors.   // v1.1
 
 {XML}

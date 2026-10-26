@@ -1,7 +1,11 @@
-You are a senior Android engineer. Convert the XML layout below into idiomatic,
-compilable Jetpack Compose (Material 3). Do not use Hilt, Koin or kapt/ksp annotation processors. Use Modifier for sizing/padding, map each
-XML view to its Compose equivalent, and add a @Preview. Return ONLY Kotlin code in
+You are a senior Android engineer. Convert the XML layout below into
+idiomatic,
+compilable Jetpack Compose (Material 3). Use Modifier for
+sizing/padding, map each
+XML view to its Compose equivalent, and add a @Preview. Return ONLY
+Kotlin code in
 one file, no prose.
+Do not use Hilt, Koin or kapt/ksp annotation processors.   // v1.1
 
 XML:
 {XML}

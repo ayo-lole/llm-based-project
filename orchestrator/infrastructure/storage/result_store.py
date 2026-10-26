@@ -27,6 +27,8 @@ class JsonResultStore:
     def save(self, result: MigrationResult) -> Path:
         sub = result.ablation.get("preset") or result.scenario
         path = self.path_for(result.model, sub, result.screen_id, result.run_index)
+        if path.exists():
+            raise FileExistsError(f"Refusing to overwrite completed record {path}")
         path.parent.mkdir(parents=True, exist_ok=True)
         tmp = path.with_suffix(path.suffix + ".tmp")
         tmp.write_text(json.dumps(result.to_dict(), indent=2), encoding="utf-8")

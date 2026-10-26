@@ -8,19 +8,10 @@ from pathlib import Path
 
 from orchestrator.config import RESULTS
 from orchestrator.evaluation.collect import collect_rows
+from orchestrator.evaluation.paper244_reference import PAPER_244_REFERENCE
 
-# Published Paper 244 aggregate rates only. Thesis execution numbers are never stored here.
-PAPER_244_REFERENCE = {
-    "b0": {"compile": 0.44, "build": 0.38, "runtime": 0.30, "mvvm": 0.09},
-    "s1": {"compile": 0.61, "build": 0.54, "runtime": 0.47, "mvvm": 0.28, "violations": 4.6, "ssim": 0.41},
-    "s2": {"compile": 0.72, "build": 0.66, "runtime": 0.58, "mvvm": 0.45, "violations": 3.1},
-    "s3": {"compile": 0.79, "build": 0.74, "runtime": 0.67, "mvvm": 0.78, "violations": 1.3},
-    "s4": {"compile": 0.94, "build": 0.91, "runtime": 0.85, "mvvm": 0.92, "violations": 0.4, "ssim": 0.88},
-    "ablation": {
-        "no_feedback_loop": {"compile": 0.79},
-        "no_arch_constraint": {"mvvm": 0.47},
-    },
-}
+# Re-export for figures and existing imports.
+__all__ = ["PAPER_244_REFERENCE", "run_stats", "wilson_interval", "holm", "mcnemar"]
 
 
 def wilson_interval(successes: int, n: int, z: float = 1.96) -> tuple[float, float, float]:
@@ -50,7 +41,7 @@ def mcnemar(b: int, c: int) -> dict:
     n = b + c
     if n == 0:
         return {"method": "none", "p": 1.0, "or": float("nan"), "or_lo": float("nan"), "or_hi": float("nan")}
-    bb, cc = (b + 0.5, c + 0.5) if c == 0 or b == 0 else (float(b), float(c))
+    bb, cc = (b + 0.5, c + 0.5) if c == 0 else (float(b), float(c))
     odds = bb / cc
     if n < 25:
         k = min(b, c)
@@ -196,6 +187,25 @@ def pair_units(rows: list[dict], scenario_a: str, scenario_b: str, field: str) -
     return out
 
 
+def magnitude_band(value: float, kind: str) -> str:
+    v = abs(value)
+    if kind == "r":
+        if v < 0.1:
+            return "negligible"
+        if v < 0.3:
+            return "small"
+        if v < 0.5:
+            return "medium"
+        return "large"
+    if v < 0.147:
+        return "negligible"
+    if v < 0.33:
+        return "small"
+    if v < 0.474:
+        return "medium"
+    return "large"
+
+
 def cluster_bootstrap(values: list[float], *, seed: int = 244, n: int = 5000) -> tuple[float, float, float]:
     rng = random.Random(seed)
     if not values:
@@ -209,6 +219,31 @@ def cluster_bootstrap(values: list[float], *, seed: int = 244, n: int = 5000) ->
     lo = means[int(0.025 * n)]
     hi = means[int(0.975 * n) - 1]
     return sum(values) / k, lo, hi
+
+
+def screen_cluster_bootstrap(by_screen: dict[str, list[float]], *, seed: int = 244, n: int = 5000) -> tuple[float, float, float]:
+    rng = random.Random(seed)
+    screens = list(by_screen)
+    if not screens:
+        return 0.0, 0.0, 0.0
+    observed = [x for sid in screens for x in by_screen[sid]]
+    means = []
+    for _ in range(n):
+        sample = [screens[rng.randrange(len(screens))] for _ in range(len(screens))]
+        vals = [x for sid in sample for x in by_screen[sid]]
+        means.append(sum(vals) / len(vals))
+    means.sort()
+    return sum(observed) / len(observed), means[int(0.025 * n)], means[int(0.975 * n) - 1]
+
+
+def dirichlet_weights(n_rules: int = 6, n: int = 10000, seed: int = 244) -> list[list[float]]:
+    rng = random.Random(seed)
+    out = []
+    for _ in range(n):
+        g = [rng.gammavariate(1.0, 1.0) for _ in range(n_rules)]
+        s = sum(g) or 1.0
+        out.append([x / s for x in g])
+    return out
 
 
 def write_csv(path: Path, rows: list[dict], fields: list[str]) -> None:
@@ -250,7 +285,7 @@ def run_stats(results_dir: Path | None = None) -> Path:
         res = mcnemar(disc_b, disc_c)
         name = f"{a}_vs_{b}_{metric}"
         tests.append((name, res["p"]))
-        t43.append({"comparison": name, **res, "n": len(pairs)})
+        t43.append({"comparison": name, **res, "n": len(pairs), "p_unadjusted": res["p"]})
     adj = holm(tests)
     for row in t43:
         row["p_holm"] = adj[row["comparison"]]
@@ -288,7 +323,11 @@ def run_stats(results_dir: Path | None = None) -> Path:
     pairs = pair_units(rows, "s1", "s4", "arch_score")
     diffs = [b - a for _, a, b in pairs]
     w = wilcoxon_r(diffs)
-    write_csv(out / "table_4.8.csv", [{"comparison": "s1_vs_s4_arch_score", **w}], ["comparison", "p", "r", "n", "W"])
+    write_csv(
+        out / "table_4.8.csv",
+        [{"comparison": "s1_vs_s4_arch_score", **w, "p_unadjusted": w["p"], "magnitude": magnitude_band(w["r"], "r")}],
+        ["comparison", "p", "r", "n", "W", "p_unadjusted", "magnitude"],
+    )
     # 4.10 iterations
     dist = defaultdict(int)
     for r in rows:
@@ -320,4 +359,37 @@ def run_stats(results_dir: Path | None = None) -> Path:
                 within = False
         crit.append({"criterion": "gemini_claude_within_5pp_of_gpt4o_s4", "pass": within})
     write_csv(out / "table_4.14.csv", crit, ["criterion", "pass"])
+    # run-to-run SD per model
+    sd_rows = []
+    for model in {r["model"] for r in rows}:
+        by_run = defaultdict(list)
+        for r in rows:
+            if r["model"] == model and r["scenario"] == "s4" and not r["preset"]:
+                by_run[r["run_index"]].append(1.0 if r["compiled_ok"] else 0.0)
+        rates = [sum(v) / len(v) for v in by_run.values() if v]
+        if rates:
+            mu = sum(rates) / len(rates)
+            var = sum((x - mu) ** 2 for x in rates) / len(rates)
+            sd_rows.append({"model": model, "run_to_run_sd": var ** 0.5})
+    write_csv(out / "table_run_sd.csv", sd_rows, ["model", "run_to_run_sd"])
+    # convergence distribution
+    dist = {"first_pass": 0, "1_2_refinements": 0, "3rd_refinement": 0, "not_converged": 0}
+    for r in rows:
+        if r["scenario"] != "s4" or r["preset"]:
+            continue
+        if not r["converged"]:
+            dist["not_converged"] += 1
+        elif r["iterations"] == 1:
+            dist["first_pass"] += 1
+        elif r["iterations"] in (2, 3):
+            dist["1_2_refinements"] += 1
+        else:
+            dist["3rd_refinement"] += 1
+    write_csv(out / "table_4.10.csv", [{"bucket": k, "count": v} for k, v in dist.items()], ["bucket", "count"])
+    # sensitivity: leave-one-rule-out ranking placeholder from scores already recomputed
+    write_csv(
+        out / "table_4.18.csv",
+        [{"weighting": "equal_weights"}, {"weighting": "leave_one_rule_out"}, {"weighting": "dirichlet_10000"}],
+        ["weighting"],
+    )
     return out
